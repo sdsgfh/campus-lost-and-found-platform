@@ -185,7 +185,35 @@ python run.py
 - 修改 `app.js` 中的 `baseUrl` 为后端地址（如 `http://127.0.0.1:5000`）
 - 点击“预览”即可在手机上测试
 
+### 8. 创建管理员账号
+管理员账号不提供 Web 端注册功能，需通过命令行创建：
+
+```bash
+flask create-admin
+# 按提示输入用户名和真实姓名
+# 初始密码为 123456，首次登录后台须强制修改
+```
 ---
+
+## 📊 数据初始化（可选）
+
+用于开发测试环境快速生成模拟数据，非生产环境使用。
+
+系统提供了数据初始化工具，其中 create_students.py 和 create_staff.py 分别生成学生和教职工的备案信息，通过 sync-students 和 sync-staff 命令同步到 sync_school 表；generate_users.py 和 generate_posts.py 则基于备案信息生成用户和帖子的模拟数据，方便系统功能演示与测试。
+
+```bash
+# 1. 生成备案信息 JSON 文件
+python scripts/create_students.py
+python scripts/create_staff.py
+
+# 2. 同步到数据库
+flask sync-students
+flask sync-staff
+
+# 3. 生成用户和帖子（基于已有数据）
+python scripts/generate_users.py
+python scripts/generate_posts.py
+```
 
 ## 📁 项目目录结构
 
