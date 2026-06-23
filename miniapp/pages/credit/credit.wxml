@@ -1,0 +1,104 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page">
+  <!-- 自定义导航（移除原规则按钮） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="title">信誉中心</text>
+    <!-- 移除原规则按钮 -->
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 信誉卡片 -->
+  <view class="credit-card">
+    <view class="score">{{creditInfo.credit_score}}</view>
+    <view class="level">
+      <image wx:if="{{creditInfo.level === '优秀'}}" src="/images/优秀.png" class="credit-icon" mode="widthFix"></image>
+      <image wx:elif="{{creditInfo.level === '良好'}}" src="/images/良好.png" class="credit-icon" mode="widthFix"></image>
+      <image wx:elif="{{creditInfo.level === '一般'}}" src="/images/一般.png" class="credit-icon" mode="widthFix"></image>
+      <image wx:elif="{{creditInfo.level === '较差'}}" src="/images/较差.png" class="credit-icon" mode="widthFix"></image>
+      <image wx:elif="{{creditInfo.level === '已封禁'}}" src="/images/封禁.png" class="credit-icon" mode="widthFix"></image>
+      {{creditInfo.level === '已封禁' ? creditInfo.level : '信誉' + creditInfo.level}}
+    </view>
+    <view class="daily-limit">每日发布上限：{{creditInfo.daily_limit || 0}}条</view>
+  </view>
+
+  <!-- 权益说明 + 规则按钮 -->
+  <view class="rights-wrap">
+    <view class="rights-card">
+      <view class="rights-item" wx:if="{{creditInfo.credit_score >= 90}}">
+        <text class="icon">✓</text>发布上限提升至10条
+      </view>
+      <view class="rights-item" wx:if="{{creditInfo.credit_score >= 70 && creditInfo.credit_score < 90}}">
+        <text class="icon">✓</text>正常发布权限（每日6条）
+      </view>
+      <view class="rights-item" wx:if="{{creditInfo.credit_score >= 60 && creditInfo.credit_score < 70}}">
+        <text class="icon">⚠️</text>发布受限（每日最多3条）
+      </view>
+      <view class="rights-item" wx:if="{{creditInfo.credit_score > 0 && creditInfo.credit_score < 60}}">
+        <text class="icon">⚠️</text>严重受限（每日最多1条）
+      </view>
+      <view class="rights-item" wx:if="{{creditInfo.credit_score == 0}}">
+        <text class="icon">🚫</text>账号已被封禁，仅可浏览
+      </view>
+    </view>
+    <!-- 新增：规则按钮（放在权益卡片右侧） -->
+    <view class="rules-btn" bindtap="showRules">
+      <text class="rules-btn-text">规则</text>
+    </view>
+  </view>
+
+  <!-- 记录切换标签 -->
+  <view class="tab-bar">
+    <view class="tab {{logType === 'all' ? 'active' : ''}}" bindtap="switchTab" data-type="all">全部</view>
+    <view class="tab {{logType === 'add' ? 'active' : ''}}" bindtap="switchTab" data-type="add">加分</view>
+    <view class="tab {{logType === 'deduct' ? 'active' : ''}}" bindtap="switchTab" data-type="deduct">扣分</view>
+  </view>
+
+  <!-- 记录列表 -->
+  <scroll-view scroll-y class="log-scroll" bindscrolltolower="loadMore">
+    <view class="log-list">
+      <view class="log-item" wx:for="{{logList}}" wx:key="id">
+        <view class="log-left">
+          <text class="reason">{{item.reason}}</text>
+          <text class="time">{{item.created_at}}</text>
+        </view>
+        <view class="log-right">
+          <text class="change {{item.type}}">{{item.change > 0 ? '+' + item.change : item.change}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!hasMore && logList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{logList.length === 0 && !loading}}">暂无记录</view>
+  </scroll-view>
+
+  <!-- 规则弹窗 -->
+  <view class="overlay" wx:if="{{showRules}}" bindtap="hideRules"></view>
+  <view class="rules-panel" wx:if="{{showRules}}">
+    <view class="rules-header">
+      <text class="title">信誉分规则</text>
+      <view class="close" bindtap="hideRules">✕</view>
+    </view>
+    <scroll-view scroll-y class="rules-content">
+      <view class="rule-group">
+        <text class="group-title">加分规则（每月上限20分）</text>
+        <view class="rule-item" wx:for="{{rules.add}}" wx:key="index">
+          <text class="rule-desc">{{item.reason}}</text>
+          <text class="rule-score">+{{item.score}}</text>
+          <text class="rule-limit" wx:if="{{item.limit}}">{{item.limit}}</text>
+        </view>
+      </view>
+      <view class="rule-group">
+        <text class="group-title">扣分规则（无上限）</text>
+        <view class="rule-item" wx:for="{{rules.deduct}}" wx:key="index">
+          <text class="rule-desc">{{item.reason}}</text>
+          <text class="rule-score">-{{item.score}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

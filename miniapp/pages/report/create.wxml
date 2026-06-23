@@ -1,0 +1,65 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="title">提交举报</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- 表单内容 -->
+  <scroll-view scroll-y class="form-scroll">
+    <view class="form-container">
+      <!-- 举报类型选择 -->
+      <view class="form-item">
+        <text class="label">举报类型 <text class="required">*</text></text>
+        <view class="option-group">
+          <view wx:for="{{typeOptions}}" wx:key="value" class="option-tag {{reportType === item.value ? 'selected' : ''}}" bindtap="selectType" data-value="{{item.value}}">
+            {{item.label}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 被举报对象信息（只读） -->
+      <view class="form-item">
+        <text class="label">被举报对象</text>
+        <view class="target-info">
+          <text class="target-type">{{targetTypeText}}</text>
+          <text class="target-name">{{targetName}}</text>
+        </view>
+      </view>
+
+      <!-- 举报理由 -->
+      <view class="form-item">
+        <text class="label">举报理由 <text class="required">*</text></text>
+        <textarea class="textarea" placeholder="请详细描述举报原因（最多300字）" maxlength="300" bindinput="onReasonInput" value="{{reason}}" />
+        <text class="word-count">{{reason.length}}/300</text>
+      </view>
+
+      <!-- 图片上传 -->
+      <view class="form-item">
+        <text class="label">证据图片 <text class="optional">（可选）</text></text>
+        <view class="upload-area">
+          <view class="upload-preview" wx:for="{{imageList}}" wx:key="index">
+            <image src="{{item}}" mode="aspectFill" class="preview-img"></image>
+            <view class="remove-btn" bindtap="removeImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="upload-btn" wx:if="{{imageList.length < maxImages}}" bindtap="chooseImage">
+            <text class="plus">+</text>
+            <text class="tip">上传</text>
+          </view>
+        </view>
+        <text class="upload-tip">最多5张，支持jpg/png，单张≤5MB</text>
+      </view>
+
+      <!-- 提交按钮 -->
+      <view class="submit-btn-box">
+        <button class="submit-btn" bindtap="submitReport" disabled="{{submitting}}">{{submitting ? '提交中...' : '提交举报'}}</button>
+      </view>
+    </view>
+  </scroll-view>
+</view>

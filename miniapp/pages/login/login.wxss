@@ -1,0 +1,165 @@
+/**index.wxss**/
+/* 页面基础样式 */
+page {
+  background-color: rgba(238, 247, 242, 0.5);
+}
+
+/* 背景图样式 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* 登录页面整体容器 */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 70rpx;
+}
+
+/* 顶部Logo区域 - 放大容器+调整间距 */
+.top-area {
+  height: 240rpx; /* 加高logo区域 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 280rpx 0 0 0; /* 减少顶部外边距，避免logo太靠下 */
+}
+
+/* logo容器 - 放大尺寸+取消圆角遮挡 */
+.logo-circle {
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%; /* 浅圆角不遮挡logo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rpx; /* 增加内边距，避免logo贴边 */
+}
+
+/* 欢迎卡片 */
+.welcome-card {
+  background-color: #ffffffd3;
+  border-radius: 16rpx;
+  margin: 20rpx 0 60rpx;
+  padding: 40rpx;
+  box-shadow: 0 2rpx 12rpx rgba(82, 196, 26, 0.08);
+}
+
+/* 欢迎卡片标题/副标题 */
+.welcome-title {
+  font-size: 36rpx;
+  color: #3e9a6f;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+.welcome-subtitle {
+  font-size: 28rpx;
+  color: #77a998;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+/* 功能列表 */
+.feature-list {
+  border-top: 1rpx solid #f5f5f5;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.feature-item:last-child {
+  border-bottom: none;
+}
+
+/* 功能项图标容器 */
+.feature-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+
+/* 功能项文字 */
+.feature-name {
+  font-size: 30rpx;
+  color: #77a998;
+  font-weight: 500;
+  margin-bottom: 4rpx;
+}
+.feature-desc {
+  font-size: 24rpx;
+  color: #90a4ae;
+}
+
+/* 登录按钮容器 */
+.login-btn-wrapper {
+  margin-bottom: 40rpx;
+  padding: 0 20rpx; /* 减少按钮左右空间占用，避免文字挤压 */
+}
+
+/* 登录按钮 - 优化文字换行问题 */
+.wechat-login-btn {
+  width: 100%;
+  height: 88rpx;
+  background-color:#A5CFA9;
+  color: #fff;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: none;
+  padding: 0 30rpx; /* 增加按钮内边距，给文字更多空间 */
+  white-space: nowrap; /* 强制文字不换行 */
+  letter-spacing: 1rpx; /* 轻微字间距，优化排版 */
+}
+
+.wechat-login-btn[disabled] {
+  background-color: #A5CFA9;
+  color: #fff;
+  opacity: 0.8;
+}
+
+.wechat-icon {
+  margin-right: 16rpx;
+  flex-shrink: 0; /* 防止图标被挤压 */
+}
+
+/* 用户协议 */
+.agreement-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rpx 0;
+}
+.agreement-checkbox {
+  transform: scale(0.7);
+  margin-right: 2rpx;
+  margin-top: 20rpx;
+  flex-shrink: 0;
+}
+.agreement-text {
+  font-size: 24rpx;
+  color: #607d8b;
+  width: auto;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.link {
+  color: #0686fd;
+  display: inline;
+  margin: 0 2rpx;
+}

@@ -1,0 +1,84 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<!-- 主容器（包含导航栏，无需额外fixed层） -->
+<view class="container">
+  <!-- 顶部导航（非fixed，随页面滚动） -->
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="nav-title">实名认证</text>
+    <view class="nav-empty"></view>
+  </view>
+
+  <!-- 内容滚动区 -->
+  <scroll-view scroll-y class="content">
+    <!-- 身份选择 -->
+    <view class="card">
+      <view class="card-title">
+        <image class="title-icon" src="/images/身份.png" mode="widthFix"></image>
+        <text>身份选择</text>
+      </view>
+      <view class="role-group">
+        <view class="role-item {{role=='student'?'active':''}}" bindtap="switchRole" data-role="student">
+          <text class="role-text">学生</text>
+        </view>
+        <view class="role-item {{role=='staff'?'active':''}}" bindtap="switchRole" data-role="staff">
+          <text class="role-text">教职工</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 学生表单 -->
+    <view class="card" wx:if="{{role=='student'}}">
+      <view class="form-item">
+        <text class="label">姓名</text>
+        <input class="input" placeholder="请输入真实姓名" value="{{name}}" bindinput="setName" />
+      </view>
+      <view class="form-item">
+        <text class="label">学号</text>
+        <input class="input" placeholder="请输入学号" value="{{idNo}}" bindinput="setIdNo" />
+      </view>
+    </view>
+
+    <!-- 教职工表单 -->
+    <view class="card" wx:if="{{role=='staff'}}">
+      <view class="form-item">
+        <text class="label">姓名</text>
+        <input class="input" placeholder="请输入真实姓名" value="{{name}}" bindinput="setName" />
+      </view>
+      <view class="form-item">
+        <text class="label">工号</text>
+        <input class="input" placeholder="请输入工号" value="{{idNo}}" bindinput="setIdNo" />
+      </view>
+    </view>
+
+    <!-- 证件上传 -->
+    <view class="card">
+      <view class="card-title">
+        <text>证件上传</text>
+      </view>
+      <view class="upload-single" bindtap="chooseFront">
+        <image wx:if="{{frontImg}}" class="upload-preview" src="{{frontImg}}" mode="aspectFill"></image>
+        <view wx:else class="upload-placeholder">
+          <text class="plus">+</text>
+          <text class="tip">上传证件正面</text>
+        </view>
+      </view>
+      <text class="upload-desc">请上传包含姓名、学号/工号的证件正面照</text>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="btn-box">
+      <button class="submit-btn" bindtap="submitAuth" disabled="{{submitting}}">
+        {{submitting ? '提交中...' : '提交审核'}}
+      </button>
+    </view>
+
+    <!-- 跳过认证 -->
+    <view class="skip-box">
+      <text class="skip-link" bindtap="skipAuth">暂时跳过，先浏览</text>
+    </view>
+  </scroll-view>
+</view>

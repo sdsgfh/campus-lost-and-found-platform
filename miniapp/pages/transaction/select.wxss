@@ -1,0 +1,161 @@
+/* 全局样式重置 */
+page {
+  background-color: #e6f2e6dd;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 背景图 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* 容器 */
+.select-container {
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 自定义导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75rpx;
+  padding: 90rpx 24rpx 4rpx;
+
+  background: #A5CFA9;
+  backdrop-filter: blur(10rpx); /* 毛玻璃效果 */
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+/* 返回按钮 */
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 返回图标 */
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+}
+
+/* 导航栏标题 */
+.title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+
+.right {
+  width: 80rpx;
+}
+
+/* 内容区域 */
+.content {
+  flex: 1;
+  padding: 30rpx;
+}
+
+/* 空状态提示 */
+.empty-tip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  gap: 30rpx;
+}
+
+.empty-icon {
+  width: 200rpx;
+  height: 200rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: #999;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 列表容器 */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 对接者列表项 */
+.candidate-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 列表项 hover/点击效果 */
+.candidate-item:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
+}
+
+/* 头像 */
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+  border: 2rpx solid #f0f0f0;
+}
+
+/* 信息区域 */
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+/* 昵称 */
+.nickname {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #222;
+  line-height: 1.4;
+}
+
+/* 最后聊天时间 */
+.last-time {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* 右侧箭头 */
+.arrow-icon {
+  font-size: 32rpx;
+  color: #ddd;
+  font-weight: 300;
+  margin-left: 20rpx;
+}

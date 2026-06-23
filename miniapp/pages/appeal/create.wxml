@@ -1,0 +1,77 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page">
+  <!-- 自定义导航栏（适配刘海屏） -->
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="nav-back" bindtap="goBack">
+        <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+      </view>
+      <view class="nav-title">{{pageTitle}}</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- 修复scroll-view高度适配问题 -->
+  <scroll-view scroll-y class="form-scroll" style="height: {{scrollHeight}};">
+    <view class="form-container">
+
+      <!-- 申诉类型 横向并行 -->
+      <view class="form-item type-item">
+        <text class="label">申诉类型：</text>
+        <!-- 直接用 appealTypeName，这个值是硬编码赋值的 -->
+        <text class="type-value">{{appealTypeName}}</text>
+      </view>
+
+      <!-- 申诉理由 -->
+      <view class="form-item">
+        <text class="label">申诉理由 <text class="required">*</text></text>
+        <view class="textarea-wrap">
+          <textarea 
+            class="textarea" 
+            placeholder="{{reasonPlaceholder}}" 
+            maxlength="300" 
+            bindinput="onReasonInput" 
+            value="{{reason}}"
+            placeholder-style="color: #999; font-size: 28rpx;"
+          />
+          <text class="word-count">{{reason.length}}/300</text>
+        </view>
+      </view>
+
+      <!-- 证据图片（优化上传中显示） -->
+      <view class="form-item">
+        <text class="label">证据图片 <text class="optional">（可选）</text></text>
+        <view class="upload-area">
+          <view class="upload-preview" wx:for="{{imageList}}" wx:key="index">
+            <image src="{{item.url || item.tempPath}}" mode="aspectFill" class="preview-img"></image>
+            <!-- 上传中遮罩 -->
+            <view class="uploading-mask" wx:if="{{item.uploading}}">
+              <text class="uploading-text">上传中...</text>
+            </view>
+            <view class="remove-btn" bindtap="removeImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="upload-btn" wx:if="{{imageList.length < maxImages}}" bindtap="chooseImage">
+            <text class="plus">+</text>
+            <text class="tip">上传证据</text>
+          </view>
+        </view>
+        <text class="upload-tip">最多5张，支持jpg/png格式，单张≤5MB</text>
+      </view>
+
+      <!-- 提交按钮（优化禁用样式） -->
+      <view class="submit-btn-box">
+        <button 
+          class="submit-btn" 
+          bindtap="submitAppeal" 
+          disabled="{{submitting || !canSubmit || !allImagesUploaded}}"
+          hover-class="none"
+        >
+          {{submitting ? '提交中...' : '提交申诉'}}
+        </button>
+      </view>
+
+    </view>
+  </scroll-view>
+</view>

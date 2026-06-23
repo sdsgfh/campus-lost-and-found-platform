@@ -1,0 +1,79 @@
+{% extends "admin/layout.html" %}
+{% block title %}轮播图管理{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">轮播图管理</h1>
+    <button class="btn btn-primary" onclick="showCreateModal()">新增轮播图</button>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>图片</th>
+            <th>链接类型</th>
+            <th>链接值</th>
+            <th>排序</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="bannerTableBody"></tbody>
+</table>
+
+<!-- 新增/编辑模态框 -->
+<div class="modal fade" id="bannerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bannerModalTitle">新增轮播图</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="bannerId">
+                <div class="mb-3">
+                    <label class="form-label">标题</label>
+                    <input type="text" class="form-control" id="bannerTitle">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">图片URL</label>
+                    <input type="text" class="form-control" id="bannerImageUrl" placeholder="http://...">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">链接类型</label>
+                    <select class="form-select" id="bannerLinkType">
+                        <option value="none">无</option>
+                        <option value="post">帖子</option>
+                        <option value="announcement">公告</option>
+                        <option value="url">外部链接</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">链接值</label>
+                    <input type="text" class="form-control" id="bannerLinkValue" placeholder="帖子ID/公告ID/URL">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">排序</label>
+                    <input type="number" class="form-control" id="bannerSortOrder" value="0">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">状态</label>
+                    <select class="form-select" id="bannerStatus">
+                        <option value="active">启用</option>
+                        <option value="inactive">禁用</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="saveBanner()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/admin/js/banners.js"></script>
+{% endblock %}

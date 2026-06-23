@@ -1,0 +1,242 @@
+/* pages/feedback/feedback.wxss */
+page {
+  background-color: #e6f2e6dd;
+  font-size: 28rpx;
+  color: #333;
+  height: 100%;
+}
+
+/* 背景图 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* 主容器 */
+.feedback-container {
+  width: 100%;
+  min-height: 100vh;
+  backdrop-filter: blur(10rpx);
+}
+
+/* 自定义导航栏（统一样式） */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: calc(20rpx + var(--status-bar-height)); /* 适配状态栏 */
+  padding: 90rpx 24rpx 10rpx;
+  background: #A5CFA9;
+  backdrop-filter: blur(10rpx);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+/* 返回按钮 */
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+}
+
+/* 导航栏标题 */
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+
+.right {
+  width: 80rpx;
+}
+
+/* 表单滚动区域 */
+.form-scroll {
+  height: calc(100vh - var(--status-bar-height) - 80rpx);
+}
+
+/* 表单容器 */
+.form-container {
+  padding: 40rpx 30rpx;
+}
+
+/* 表单项 */
+.form-item {
+  margin-bottom: 40rpx;
+}
+
+/* 标签 */
+.label {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.required {
+  color: #f56c6c;
+}
+
+.optional {
+  color: #999;
+  font-size: 26rpx;
+}
+
+/* 文本域容器（修复字数统计定位） */
+.textarea-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* 文本域 */
+.textarea {
+  width: 100%;
+  height: 200rpx;
+  background: #f7f8f7;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #e0e8e0;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.textarea:focus {
+  border-color: #2E7D32; /* 聚焦高亮 */
+}
+
+/* 字数统计 */
+.word-count {
+  position: absolute;
+  right: 24rpx;
+  bottom: 24rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 上传区域 */
+.upload-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+/* 图片预览 */
+.upload-preview {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 16rpx;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 删除按钮 */
+.remove-btn {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  width: 32rpx;
+  height: 32rpx;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32rpx;
+  font-size: 24rpx;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:active {
+  background-color: rgba(0,0,0,0.7);
+}
+
+/* 上传按钮 */
+.upload-btn {
+  width: 160rpx;
+  height: 160rpx;
+  background: #f7f8f7;
+  border: 2rpx dashed #b8c9b8;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.upload-btn:active {
+  background-color: #f0f0f0;
+}
+
+.plus {
+  font-size: 48rpx;
+  color: #2E7D32;
+  line-height: 1;
+  margin-bottom: 8rpx;
+}
+
+.tip {
+  font-size: 22rpx;
+  color: #2E7D32;
+}
+
+/* 上传提示 */
+.upload-tip {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 16rpx;
+  display: block;
+}
+
+/* 提交按钮容器 */
+.submit-btn-box {
+  margin-top: 60rpx;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  width: 100%;
+  height: 96rpx;
+  line-height: 76rpx;
+  background:#6ea771cd;
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4rpx 15rpx rgba(46, 125, 50, 0.3);
+  transition: all 0.2s ease;
+}
+
+.submit-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 8rpx rgba(46, 125, 50, 0.2);
+}
+
+.submit-btn[disabled] {
+  background: #ccc;
+  box-shadow: none;
+  transform: none;
+}

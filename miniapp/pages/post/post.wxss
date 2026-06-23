@@ -1,0 +1,423 @@
+/* pages/post/post.wxss */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 28rpx;
+  height: 100%;
+  background-color: #E6F2E6;
+}
+
+/* 背景图 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.post-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 自定义导航栏（统一样式） */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90rpx;
+  padding: 85rpx 24rpx 0;
+  background: #A5CFA9;
+  backdrop-filter: blur(10rpx);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+/* 返回按钮 */
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* 返回图标 */
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+  object-fit: contain;
+}
+
+/* 导航栏标题 */
+.nav-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+
+.nav-right {
+  width: 60rpx;
+}
+
+/* 表单滚动区 */
+.form-scroll {
+  height: calc(100vh - var(--status-bar-height) - 80rpx - 80rpx);
+}
+
+.form-container {
+  padding: 40rpx 30rpx;
+}
+
+.form-item {
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+/* 表单项标签 */
+.label {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 9rpx;
+  display: block;
+}
+
+.required {
+  color: #f56c6c;
+  margin-left: 4rpx;
+}
+
+.optional {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.input {
+  width: 100%;
+  background-color: #f7f8f7;
+  border-radius: 16rpx;
+  padding: 20rpx 16rpx;
+  font-size: 28rpx;
+  /* 不设置 line-height，使用默认值 normal */
+  border: 2rpx solid #e0e8e0;
+  box-sizing: border-box;
+  min-height: 80rpx;  /* 保证点击区域足够大 */
+}
+.textarea, .picker-value {
+  width: 100%;
+  background-color: #f7f8f7;
+  border-radius: 16rpx;
+  padding: 16rpx 16rpx;
+  font-size: 28rpx;
+  height: 60rpx;
+  border: 2rpx solid #e0e8e0;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.input:focus, .textarea:focus {
+  border-color: #2E7D32; /* 聚焦高亮 */
+}
+
+.textarea {
+  height: 200rpx;
+  resize: none;
+  line-height: 1.6;
+}
+
+/* 字数统计 */
+.word-count {
+  position: absolute;
+  right: 24rpx;
+  bottom: 16rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 时间选择器容器 */
+.time-item {
+  margin-bottom: 40rpx;
+}
+
+.time-picker-wrap {
+  display: flex;
+  gap: 16rpx;
+}
+
+.time-picker {
+  flex: 1;
+}
+
+.picker {
+  width: 100%;
+
+}
+
+.picker-value {
+  min-height: 88rpx;
+  line-height: 88rpx;
+  padding: 0 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+/* 价格输入框 */
+.price-input {
+  padding-right: 80rpx;
+  resize: none;
+}
+
+
+/* 图片上传区域 */
+.upload-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.upload-preview {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 16rpx;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  width: 32rpx;
+  height: 32rpx;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32rpx;
+  font-size: 28rpx;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:active {
+  background-color: rgba(0,0,0,0.7);
+}
+
+.upload-btn {
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #f7f8f7;
+  border: 2rpx dashed #b8c9b8;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.upload-btn:active {
+  background-color: #f0f0f0;
+}
+
+.plus {
+  font-size: 48rpx;
+  color: #2E7D32;
+  line-height: 1;
+  margin-bottom: 8rpx;
+}
+
+.tip {
+  font-size: 22rpx;
+  color: #2E7D32;
+}
+
+.upload-tip {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 16rpx;
+  display: block;
+}
+
+/* 提交按钮 */
+.submit-btn-box {
+  margin-top: 60rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 96rpx;
+  line-height: 76rpx;
+  background: #69a06b;
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 8rpx rgba(46, 125, 50, 0.2);
+}
+
+.submit-btn[disabled] {
+  background: #ccc;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.6;
+}
+
+/* 遮罩层 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+/* 快速认领弹窗 */
+.quick-claim-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600rpx;
+  background: white;
+  border-radius: 24rpx;
+  z-index: 1001;
+  overflow: hidden;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.2);
+}
+
+/* 审核失败弹窗 */
+.audit-fail-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600rpx;
+  background: white;
+  border-radius: 24rpx;
+  z-index: 1001;
+  overflow: hidden;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.2);
+}
+
+/* 弹窗通用样式 */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 24rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.dialog-title {
+  font-size: 32rpx;
+  color: #2E7D32;
+  font-weight: bold;
+}
+
+.audit-fail-dialog .dialog-title {
+  color: #f56c6c;
+}
+
+.close-icon {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-content {
+  padding: 32rpx 24rpx;
+}
+
+.dialog-desc {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 24rpx;
+  display: block;
+  line-height: 1.6;
+}
+
+.fail-desc {
+  color: #f56c6c;
+  text-align: center;
+  margin-top: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.fail-icon {
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+
+.dialog-tip {
+  font-size: 26rpx;
+  color: #999;
+  text-align: center;
+  display: block;
+}
+
+.dialog-input {
+  width: 100%;
+  height: 88rpx;
+  background: #f7f8f7;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #e0e8e0;
+  box-sizing: border-box;
+}
+
+.dialog-footer {
+  display: flex;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.dialog-footer button {
+  flex: 1;
+  height: 88rpx;
+  border-radius: 0;
+  font-size: 32rpx;
+  background: white;
+}
+
+.btn-cancel {
+  color: #666;
+  border-right: 2rpx solid #f0f0f0;
+}
+
+.btn-confirm {
+  color: #2E7D32;
+  font-weight: bold;
+}
+
+.audit-fail-dialog .dialog-footer {
+  display: block;
+}
+
+.audit-fail-dialog .btn-confirm {
+  width: 100%;
+  color: white;
+  background: #f56c6c;
+  border-radius: 0;
+}

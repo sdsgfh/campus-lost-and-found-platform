@@ -1,0 +1,199 @@
+/* 全局样式 */
+page {
+  background-color: #e6f2e6dd;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.list-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 导航栏 */
+.nav-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 105rpx 24rpx 10rpx;
+  background: #A5CFA9;
+}
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+}
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+.right {
+  width: 60rpx;
+}
+
+.list-scroll {
+  position: absolute;
+  top: 180rpx;  
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+.list {
+  padding: 16rpx 24rpx;
+}
+
+/* 记录项 */
+.record-item {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+  transition: all 0.2s;
+}
+.record-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 1rpx 4rpx rgba(0,0,0,0.02);
+}
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.item-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+}
+.type {
+  font-size: 24rpx;
+  color: #2E7D32;
+  background: #e8f5e8;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+}
+.item-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: #666;
+}
+.other, .time {
+  color: #999;
+}
+
+/* 状态提示 */
+.loading-more, .no-more, .empty {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 26rpx;
+  color: #999;
+}
+.empty {
+  padding: 80rpx 0;
+}
+
+/* 弹窗遮罩 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+}
+
+/* 详情弹窗 */
+.detail-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 650rpx;
+  background: white;
+  border-radius: 24rpx;
+  z-index: 101;
+  max-height: 80vh;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+.close-btn {
+  font-size: 32rpx;
+  color: #999;
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+}
+.modal-content {
+  max-height: 60vh;
+  padding: 2rpx;
+}
+.detail-card {
+  background: #f9f9f9;
+  border-radius: 16rpx;
+  padding: 24rpx;
+}
+.detail-row {
+  display: flex;
+  margin-bottom: 24rpx;
+  align-items: flex-start;
+}
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+.label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 120rpx;
+  flex-shrink: 0;
+}
+.value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  word-break: break-all;
+}

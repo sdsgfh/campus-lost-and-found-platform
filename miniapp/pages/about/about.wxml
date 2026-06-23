@@ -1,0 +1,41 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="about-container">
+  <!-- 自定义导航栏（固定不滑动） -->
+  <view class="nav-box">
+    <view class="nav-bar">
+      <view class="nav-back" bindtap="goBack">
+        <image src="/images/返回.png" class="back-icon"></image>
+      </view>
+      <view class="nav-title">关于我们</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- logo区域（一行显示：图标 + 文字 + 版本号） -->
+    <view class="logo-box">
+      <image src="/images/logo.png" class="logo-icon"></image>
+      <view class="logo-text-wrap">
+        <view class="logo-text">校觅</view>
+        <view class="version">版本 1.0.0</view>
+      </view>
+    </view>
+
+    <!-- 小程序介绍（首行缩进） -->
+    <view class="intro-box">
+      <view class="intro-title">关于校觅</view>
+      <view class="intro-content">
+        校觅是专为高校师生打造的校园生活服务小程序，聚焦失物招领、闲置交易、需求对接等校园高频场景，致力于让校园生活更便捷、更温暖。我们希望通过技术手段，解决校园内物品遗失、闲置资源浪费等问题，构建互助、共享的校园生态。
+      </view>
+    </view>
+
+    <!-- 协议链接 -->
+    <view class="links-box">
+      <text class="link-item" bindtap="openUserAgreement">用户服务协议</text>
+      <text class="link-item" bindtap="openPrivacyPolicy">隐私政策</text>
+    </view>
+  </view>
+</view>

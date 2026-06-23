@@ -1,0 +1,191 @@
+/* pages/profile/profile.wxss */
+page {
+  background-color: #e6f2e6dd;
+  height: 100vh;
+}
+
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.profile-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0; 
+}
+
+/* 新增：自定义导航栏样式 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  padding: 90rpx 54rpx 4rpx;
+  background: #A5CFA9;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center; /* 修复标题偏移，居中显示 */
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 55rpx;
+}
+.nav-right {
+  width: 60rpx;
+}
+
+/* 用户信息卡片（核心美化） */
+.user-card {
+  padding: 32rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 0 0 32rpx 32rpx;
+  margin-bottom: 20rpx;
+  align-items: center;
+  position: relative; /* 用于编辑图标定位 */
+}
+.avatar-wrapper {
+  width: 140rpx;
+  height: 140rpx;
+  margin-right: 30rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4rpx solid #f0f8f0;
+}
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.info {
+  flex: 1;
+}
+.name-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+  flex-wrap: wrap;
+}
+.nickname {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333333;
+  margin-right: 16rpx;
+}
+.status-tag {
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  margin-top: 4rpx;
+}
+.status-tag.unverified {
+  background: #ffebee;
+  color: #f56c6c;
+}
+.status-tag.verified {
+  background: #e8f5e8;
+  color: #2E7D32;
+}
+.status-tag.cancelled {
+  background: #e0e0e0;
+  color: #999999;
+}
+.status-tag.banned {
+  background: #fff3e0;
+  color: #ff9800;
+}
+.bio {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 1.5;
+}
+.bio-placeholder {
+  font-size: 28rpx;
+  color: #999999;
+  font-style: italic;
+}
+
+/* 新增：编辑图标样式（卡片右上角） */
+.edit-icon {
+  position: absolute;
+  top: 30rpx;
+  right: 30rpx;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.edit-icon image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.edit-icon:active {
+  transform: scale(0.95);
+  transition: all 0.2s ease;
+}
+
+/* 功能菜单列表（美化） */
+.menu-list {
+  padding: 0 30rpx 20rpx;
+}
+.menu-item {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 32rpx 30rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.03);
+  border: 1rpx solid #f0f0f0;
+}
+.item-text {
+  font-size: 32rpx;
+  color: #333333;
+}
+/* 替换文字箭头为CSS箭头 */
+.item-arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-right: 3rpx solid #cccccc;
+  border-top: 3rpx solid #cccccc;
+  transform: rotate(45deg);
+}
+
+/* 退出登录按钮（美化） */
+.logout-btn {
+  margin: 20rpx 30rpx 60rpx;
+  background: #70a88a;
+  border-radius: 12rpx;
+  padding: 32rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 15rpx rgba(245, 108, 108, 0.1);
+}
+.logout-text {
+  color: #f8f3f3;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+/* 通用点击态 */
+.menu-item:active, .logout-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+  transition: all 0.2s ease;
+}

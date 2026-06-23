@@ -1,0 +1,70 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="login-container">
+  <!-- 顶部Logo区域 - 调整图片尺寸适配容器 -->
+  <view class="top-area">
+    <view class="logo-wrapper">
+      <view class="logo-circle">
+        <!-- mode="widthFix" 保证图片宽高比，完整显示 -->
+        <image src="/images/logo.png" mode="widthFix" style="width: 280rpx; height: auto;"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 欢迎卡片 -->
+  <view class="welcome-card">
+    <view class="welcome-title">欢迎使用校觅</view>
+    <view class="welcome-subtitle">校园失物招领与二手交易平台</view>
+    <view class="feature-list">
+      <!-- 失物招领 -->
+      <view class="feature-item">
+        <view class="feature-icon">
+          <image src="/images/登录页-失物.png" mode="aspectFit" style="width: 32rpx; height: 32rpx;"></image>
+        </view>
+        <view class="feature-text">
+          <view class="feature-name">失物招领</view>
+          <view class="feature-desc">快速寻回你的心爱之物</view>
+        </view>
+      </view>
+      <!-- 二手交易 -->
+      <view class="feature-item">
+        <view class="feature-icon">
+          <image src="/images/登录页-二手.png" mode="aspectFit" style="width: 32rpx; height: 32rpx;"></image>
+        </view>
+        <view class="feature-text">
+          <view class="feature-name">二手交易</view>
+          <view class="feature-desc">学长学姐带不走的宝藏</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 登录按钮 -->
+  <view class="login-btn-wrapper">
+    <button 
+      class="wechat-login-btn" 
+      open-type="getUserInfo"
+      bindgetuserinfo="handleWechatLogin"
+      disabled="{{!agreed}}"
+    >
+      <icon class="wechat-icon" type="success-circle" size="24" color="#fff"></icon>
+      微信用户一键登录
+    </button>
+  </view>
+  
+  <!-- 用户协议 -->
+  <view class="agreement-wrapper">
+    <checkbox-group bindchange="handleAgreeChange">
+      <checkbox 
+        class="agreement-checkbox" 
+        value="agree"
+        checked="{{agreed}}"
+        color="#A5CFA9"
+      />
+    </checkbox-group>
+    <text class="agreement-text">
+      我已阅读并同意<text class="link" bindtap="openUserAgreement">《用户服务协议》</text>与<text class="link" bindtap="openPrivacyPolicy">《隐私政策》</text>
+    </text>
+  </view>
+</view>

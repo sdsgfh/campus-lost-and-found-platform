@@ -1,0 +1,150 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page-wrapper">
+  <!-- 导航栏 -->
+  <view class="nav-box" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar">
+      <view class="nav-title">二手交易</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar-section">
+    <view class="search-bar">
+      <view class="search-input-box" bindtap="goToSearch">
+        <image class="search-icon-img" src="/images/首页-搜索.png" mode="aspectFit"></image>
+        <text class="search-placeholder">搜索书籍、数码、服饰...</text>
+      </view>
+      <view class="filter-btn" bindtap="openFilter">
+        <image src="/images/筛选.png" class="filter-img" mode="widthFix"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="tab-section">
+    <view class="tab-container">
+      <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-index="0">
+        出售
+      </view>
+      <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-index="1">
+        求购
+      </view>
+      <view class="tab-indicator" style="{{indicatorStyle}}"></view>
+    </view>
+  </view>
+
+  <!-- 排序方式选择（Tab栏下方多行展示） -->
+  <view class="sort-section">
+    <view class="sort-grid grid-3">
+      <view class="sort-tag {{activeSort === 'comprehensive' ? 'selected' : ''}}" bindtap="selectSort" data-value="comprehensive">综合排序</view>
+      <view class="sort-tag {{activeSort === 'hot' ? 'selected' : ''}}" bindtap="selectSort" data-value="hot">热门排序</view>
+      <view class="sort-tag {{activeSort === 'time' ? 'selected' : ''}}" bindtap="selectSort" data-value="time">时间排序</view>
+    </view>
+  </view>
+
+  <!-- 内容滚动区域 -->
+  <view class="list-section">
+    <scroll-view scroll-y class="content-scroll" bindscrolltolower="loadMore">
+      <view class="content-list">
+        <!-- 卡片区域 -->
+        <view class="card" wx:for="{{cardList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+          <view class="card-img">
+            <image wx:if="{{item.images && item.images[0]}}" src="{{item.images[0]}}" mode="aspectFill" class="real-img"></image>
+            <image wx:else src="/images/default.png" mode="aspectFill" class="real-img"></image>
+          </view>
+          <view class="card-info">
+            <text class="card-title">{{item.title}}</text>
+            <!-- 根据类型显示价格 -->
+            <text class="card-price" wx:if="{{item.type === 'sale' && item.price}}">¥{{item.price}}</text>
+            <text class="card-price" wx:elif="{{item.type === 'wanted' && item.expected_price}}">期望价 ¥{{item.expected_price}}</text>
+            <text class="card-time">{{item.created_at}}</text>
+          </view>
+        </view>
+
+        <!-- 状态提示 -->
+        <view class="no-more" wx:if="{{noMore && !loading && !loadingMore}}">已加载全部</view>
+        <view class="empty-tip" wx:if="{{cardList.length === 0 && !loading && !loadFailed}}">暂无符合条件的内容</view>
+        <view class="error-tip" wx:if="{{loadFailed}}">
+          <text>加载失败，请重试</text>
+          <button bindtap="reloadData" class="refresh-btn">刷新</button>
+        </view>
+        <view class="loading-status" wx:if="{{loading}}">加载中...</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 发布按钮 -->
+  <view class="publish-btn" bindtap="goToPublish">
+    <image src="/images/上传.png" class="publish-img" mode="widthFix"></image>
+  </view>
+
+  <!-- 筛选弹窗 -->
+  <view class="overlay" wx:if="{{showFilter}}" bindtap="closeFilter"></view>
+  <view class="filter-panel {{showFilter ? 'active' : ''}}">
+    <view class="panel-header">
+      <view class="panel-header-left"></view>
+      <text class="panel-title">筛选</text>
+      <view class="close-icon" bindtap="closeFilter">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#666"></path>
+        </svg>
+      </view>
+    </view>
+
+    <view class="filter-group">
+      <view class="group-title-with-icon">
+        <image src="/images/分类.png" class="group-icon" mode="aspectFit"></image>
+        <text>物品分类</text>
+      </view>
+      <view class="option-grid grid-3">
+        <view class="option-tag {{selectedCategory === '全部' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="全部">全部</view>
+        <view class="option-tag {{selectedCategory === '数码电子' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="数码电子">数码电子</view>
+        <view class="option-tag {{selectedCategory === '教材书籍' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="教材书籍">教材书籍</view>
+        <view class="option-tag {{selectedCategory === '服饰鞋包' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="服饰鞋包">服饰鞋包</view>
+        <view class="option-tag {{selectedCategory === '生活用品' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="生活用品">生活用品</view>
+        <view class="option-tag {{selectedCategory === '美妆护肤' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="美妆护肤">美妆护肤</view>
+        <view class="option-tag {{selectedCategory === '体育用品' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="体育用品">体育用品</view>
+        <view class="option-tag {{selectedCategory === '文具办公' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="文具办公">文具办公</view>
+        <view class="option-tag {{selectedCategory === '其他' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="其他">其他</view>
+      </view>
+    </view>
+
+    <view class="filter-group">
+      <view class="group-title-with-icon">
+        <image src="/images/成色.png" class="group-icon" mode="aspectFit"></image>
+        <text>新旧成色</text>
+      </view>
+      <view class="option-grid grid-3">
+        <view class="option-tag {{selectedQuality === '全部' ? 'selected' : ''}}" bindtap="selectOption" data-group="quality" data-value="全部">全部</view>
+        <view class="option-tag {{selectedQuality === '全新' ? 'selected' : ''}}" bindtap="selectOption" data-group="quality" data-value="全新">全新</view>
+        <view class="option-tag {{selectedQuality === '9成新' ? 'selected' : ''}}" bindtap="selectOption" data-group="quality" data-value="9成新">9成新</view>
+        <view class="option-tag {{selectedQuality === '8成新' ? 'selected' : ''}}" bindtap="selectOption" data-group="quality" data-value="8成新">8成新</view>
+        <view class="option-tag {{selectedQuality === '7成新' ? 'selected' : ''}}" bindtap="selectOption" data-group="quality" data-value="7成新">7成新</view>
+        <view class="option-tag {{selectedQuality === '6成新及以下' ? 'selected' : ''}}" bindtap="selectOption" data-group="quality" data-value="6成新及以下">6成新及以下</view>
+      </view>
+    </view>
+
+    <view class="filter-group">
+      <view class="group-title-with-icon">
+        <image src="/images/价格.png" class="group-icon" mode="aspectFit"></image>
+        <text>价格范围</text>
+      </view>
+      <view class="option-grid grid-2">
+        <view class="option-tag {{selectedPrice === '全部' ? 'selected' : ''}}" bindtap="selectOption" data-group="price" data-value="全部">全部</view>
+        <view class="option-tag {{selectedPrice === '0-50' ? 'selected' : ''}}" bindtap="selectOption" data-group="price" data-value="0-50">0-50元</view>
+        <view class="option-tag {{selectedPrice === '50-100' ? 'selected' : ''}}" bindtap="selectOption" data-group="price" data-value="50-100">50-100元</view>
+        <view class="option-tag {{selectedPrice === '100-200' ? 'selected' : ''}}" bindtap="selectOption" data-group="price" data-value="100-200">100-200元</view>
+        <view class="option-tag {{selectedPrice === '200-500' ? 'selected' : ''}}" bindtap="selectOption" data-group="price" data-value="200-500">200-500元</view>
+        <view class="option-tag {{selectedPrice === '500+' ? 'selected' : ''}}" bindtap="selectOption" data-group="price" data-value="500+">500元以上</view>
+      </view>
+    </view>
+
+    <view class="panel-footer">
+      <button class="btn-reset" bindtap="resetFilter">重置</button>
+      <button class="btn-confirm" bindtap="confirmFilter">确认</button>
+    </view>
+  </view>
+</view>

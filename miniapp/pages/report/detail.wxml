@@ -1,0 +1,52 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <text class="icon">←</text>
+    </view>
+    <text class="title">举报详情</text>
+    <view class="right"></view>
+  </view>
+
+  <scroll-view scroll-y class="content-scroll">
+    <view class="detail-card">
+      <view class="info-row">
+        <text class="label">举报对象：</text>
+        <text class="value">{{report.targetName}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">举报类型：</text>
+        <text class="value">{{report.reportTypeText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">举报时间：</text>
+        <text class="value">{{report.created_at}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">处理状态：</text>
+        <text class="value status {{report.status}}">{{report.statusText}}</text>
+      </view>
+      <view class="info-row" wx:if="{{report.result}}">
+        <text class="label">处理结果：</text>
+        <text class="value">{{report.result}}</text>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="info-row">
+        <text class="label">举报理由：</text>
+        <text class="value">{{report.reason}}</text>
+      </view>
+
+      <view class="info-row" wx:if="{{report.evidence_images && report.evidence_images.length > 0}}">
+        <text class="label">证据图片：</text>
+        <view class="image-list">
+          <image wx:for="{{report.evidence_images}}" wx:key="index" src="{{item}}" mode="aspectFill" class="evidence-img" bindtap="previewImage" data-url="{{item}}"></image>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,149 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<!-- 外层容器：只让内容区域滚动，顶部导航/搜索栏固定 -->
+<view class="page-wrapper">
+  <!-- 顶部固定区域：导航栏 + 搜索栏 -->
+  <view class="top-fixed">
+    <!-- 导航栏 -->
+    <view class="nav-box">
+      <view class="nav-bar">
+        <view class="nav-back" bindtap="goBack">
+          <image src="/images/返回.png" class="back-icon"></image>
+        </view>
+        <view class="nav-title">搜索</view>
+        <view class="nav-right"></view>
+      </view>
+    </view>
+
+    <!-- 搜索栏 -->
+    <view class="search-bar-section">
+      <view class="search-bar">
+        <!-- 真实输入框（接管所有交互） -->
+        <input 
+          class="real-input" 
+          placeholder="搜索物品、失物..." 
+          confirm-type="search" 
+          bindinput="onInput" 
+          bindconfirm="onSearch"
+          bindblur="checkEmptyKeyword" 
+          value="{{keyword}}"
+          maxlength="20"
+        />
+        <!-- 视觉层 -->
+        <view class="search-input-box">
+          <image class="search-icon-img" src="/images/首页-搜索.png" mode="aspectFit"></image>
+          <text class="search-keyword">{{keyword}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 可滚动内容区域 -->
+  <scroll-view class="content-scroll" scroll-y>
+    <!-- 初始状态：历史/热门搜索 -->
+    <view class="content-wrapper" wx:if="{{!showResult}}">
+      <!-- 搜索历史 -->
+      <view class="history-section" wx:if="{{historyList.length > 0}}">
+        <view class="section-header">
+          <text class="section-title">最近搜索</text>
+          <image class="clear-icon" src="/images/删除.png" bindtap="clearHistory"></image>
+        </view>
+        <view class="history-tags">
+          <view 
+            class="history-tag" 
+            wx:for="{{historyList}}" 
+            wx:key="index"
+            bindtap="onHistoryTap" 
+            data-keyword="{{item}}"
+            bindlongpress="deleteHistory" 
+            data-keyword="{{item}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 热门搜索 -->
+      <view class="hot-section" wx:if="{{hotList.length > 0}}">
+        <view class="section-header">
+          <text class="section-title">热门搜索</text>
+        </view>
+        <view class="hot-tags">
+          <view 
+            class="hot-tag" 
+            wx:for="{{hotList}}" 
+            wx:key="index"
+            bindtap="onHotTap" 
+            data-keyword="{{item}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 搜索结果状态 -->
+    <view class="content-wrapper" wx:else>
+      <!-- 类型筛选栏（固定在结果顶部，不随滚动消失） -->
+      <view class="type-filter">
+        <view 
+          class="type-item {{currentType === 'all' ? 'active' : ''}}" 
+          bindtap="switchType" data-type="all"
+        >全部</view>
+        <view 
+          class="type-item {{currentType === 'lost' ? 'active' : ''}}" 
+          bindtap="switchType" data-type="lost"
+        >寻物</view>
+        <view 
+          class="type-item {{currentType === 'found' ? 'active' : ''}}" 
+          bindtap="switchType" data-type="found"
+        >招领</view>
+        <view 
+          class="type-item {{currentType === 'sale' ? 'active' : ''}}" 
+          bindtap="switchType" data-type="sale"
+        >出售</view>
+        <view 
+          class="type-item {{currentType === 'wanted' ? 'active' : ''}}" 
+          bindtap="switchType" data-type="wanted"
+        >求购</view>
+      </view>
+
+      <!-- 搜索结果列表 -->
+      <view class="result-list">
+        <view 
+          class="card" 
+          wx:for="{{resultList}}" 
+          wx:key="id" 
+          bindtap="goToDetail" 
+          data-id="{{item.id}}"
+        >
+          <view class="card-img">
+            <image wx:if="{{item.images && item.images[0]}}" src="{{item.images[0]}}" mode="aspectFill" class="real-img"></image>
+            <image wx:else src="/images/default.png" mode="aspectFill" class="real-img"></image>
+          </view>
+          <view class="card-info">
+            <text class="card-title">{{item.title}}</text>
+            <text class="card-type">{{item.typeText}}</text>
+            <text class="card-time">{{item.created_at}}</text>
+          </view>
+        </view>
+
+        <!-- 空状态 -->
+        <view wx:if="{{resultList.length === 0 && !resultLoading}}" class="empty-tip">
+          暂无相关内容，请调整关键词
+        </view>
+
+        <!-- 加载更多状态 -->
+        <view wx:if="{{resultLoadingMore}}" class="loading-more">加载中...</view>
+        <view wx:elif="{{!resultHasMore && resultList.length > 0}}" class="no-more">没有更多了</view>
+
+        <!-- 加载失败 -->
+        <view wx:if="{{resultError}}" class="error-tip">
+          <text>加载失败，请重试</text>
+          <button bindtap="retrySearch" class="refresh-btn">刷新</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

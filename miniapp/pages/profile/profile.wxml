@@ -1,0 +1,84 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="profile-container">
+  <!-- 新增：自定义导航栏 -->
+  <view class="nav-bar">
+    <text class="nav-title">个人中心</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 用户信息卡片（新增编辑图标） -->
+  <view class="user-card">
+    <view class="avatar-wrapper" bindtap="changeAvatar">
+      <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+    </view>
+    <view class="info">
+      <view class="name-row">
+        <text class="nickname">{{userInfo.nickname || '微信用户'}}</text>
+        <text class="status-tag {{userInfo.status}}">{{statusText}}</text>
+      </view>
+      <view class="bio" wx:if="{{userInfo.status === 'verified' && userInfo.bio}}">{{userInfo.bio}}</view>
+      <view class="bio-placeholder" wx:elif="{{userInfo.status === 'verified' && !userInfo.bio}}" bindtap="editBio">添加个人简介</view>
+    </view>
+    <!-- 编辑图标（移至卡片右上角） -->
+    <view class="edit-icon" bindtap="goToEdit" wx:if="{{userInfo.status !== 'banned'}}">
+      <image src="/images/编辑.png" mode="widthFix"></image>
+    </view>
+  </view>
+
+  <!-- 功能入口列表（样式优化） -->
+  <view class="menu-list">
+    <!-- 已认证用户入口 -->
+    <block wx:if="{{userInfo.status === 'verified'}}">
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/transaction/list">
+        <text class="item-text">交易认领记录</text>
+        <view class="item-arrow"></view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/reports/reports">
+        <text class="item-text">举报申诉记录</text>
+        <view class="item-arrow"></view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/credit/credit">
+        <text class="item-text">信誉中心</text>
+        <view class="item-arrow"></view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/reward/reward">
+        <text class="item-text">奖励中心</text>
+        <view class="item-arrow"></view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/myposts/myposts">
+        <text class="item-text">我的发布</text>
+        <view class="item-arrow"></view>
+      </view>
+      <view class="menu-item" bindtap="goToPage" data-url="/pages/favorites/favorites">
+        <text class="item-text">我的收藏</text>
+        <view class="item-arrow"></view>
+      </view>
+    </block>
+
+    <!-- 未认证用户入口 -->
+    <block wx:elif="{{userInfo.status === 'unverified'}}">
+      <view class="menu-item" bindtap="goToAuth">
+        <text class="item-text">实名认证</text>
+        <view class="item-arrow"></view>
+      </view>
+    </block>
+
+    <!-- 封禁用户入口（只显示系统设置） -->
+    <block wx:elif="{{userInfo.status === 'banned'}}">
+      <!-- 仅显示系统设置 -->
+    </block>
+
+    <!-- 系统设置（所有用户都有） -->
+    <view class="menu-item" bindtap="goToPage" data-url="/pages/setting/setting">
+      <text class="item-text">系统设置</text>
+      <view class="item-arrow"></view>
+    </view>
+  </view>
+
+  <!-- 退出登录按钮（样式优化） -->
+  <view class="logout-btn" bindtap="logout">
+    <text class="logout-text">退出登录</text>
+  </view>
+</view>

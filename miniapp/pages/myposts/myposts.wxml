@@ -1,0 +1,70 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page">
+  <!-- 自定义导航栏 - 替换返回图标 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image class="back-img" src="/images/返回.png" mode="aspectFit"></image>
+    </view>
+    <text class="title">我的发布</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- 状态分类tab -->
+  <scroll-view scroll-x class="status-tabs" show-scrollbar="{{false}}">
+    <view class="tab-item {{currentStatusTab === 'all' ? 'active' : ''}}" bindtap="switchStatusTab" data-status="all">全部</view>
+    <view class="tab-item {{currentStatusTab === 'active' ? 'active' : ''}}" bindtap="switchStatusTab" data-status="active">进行中</view>
+    <view class="tab-item {{currentStatusTab === 'completed' ? 'active' : ''}}" bindtap="switchStatusTab" data-status="completed">已完成</view>
+    <view class="tab-item {{currentStatusTab === 'expired' ? 'active' : ''}}" bindtap="switchStatusTab" data-status="expired">已过期</view>
+    <view class="tab-item {{currentStatusTab === 'off' ? 'active' : ''}}" bindtap="switchStatusTab" data-status="off">已下架</view>
+  </scroll-view>
+
+  <!-- 筛选行 - 排序改为Tab标签 -->
+  <view class="filter-row">
+    <!-- 排序Tab -->
+    <view class="sort-tabs">
+      <view class="sort-tab {{sort === 'time' ? 'active' : ''}}" bindtap="setSort" data-sort="time">时间排序</view>
+      <view class="sort-tab {{sort === 'status' ? 'active' : ''}}" bindtap="setSort" data-sort="status">状态排序</view>
+    </view>
+    <!-- 类型筛选 -->
+    <view class="type-filter" bindtap="showTypePicker">
+      <text>{{currentTypeText}}</text>
+      <text class="arrow">▼</text>
+    </view>
+  </view>
+
+  <!-- 列表区域 -->
+  <scroll-view scroll-y class="list-scroll" bindscrolltolower="loadMore">
+    <view class="list">
+      <view class="card" wx:for="{{postList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="card-img">
+          <image src="{{item.first_image || '/images/default.png'}}" mode="aspectFill"></image>
+        </view>
+        <view class="card-info">
+          <view class="title-row">
+            <text class="title">{{item.title}}</text>
+            <text class="type-tag">{{item.type_text}}</text>
+          </view>
+          <view class="time-status">
+            <text class="time">{{item.created_at}}</text>
+            <text class="status {{item.status}}">{{item.status_text}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!hasMore && postList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{postList.length === 0 && !loading}}">暂无发布</view>
+  </scroll-view>
+
+  <!-- 类型选择弹窗 -->
+  <view class="overlay" wx:if="{{showTypePicker}}" bindtap="hideTypePicker"></view>
+  <view class="type-picker" wx:if="{{showTypePicker}}">
+    <view class="picker-item {{currentType === '' ? 'selected' : ''}}" bindtap="selectType" data-type="">全部类型</view>
+    <view class="picker-item {{currentType === 'lost' ? 'selected' : ''}}" bindtap="selectType" data-type="lost">寻物</view>
+    <view class="picker-item {{currentType === 'found' ? 'selected' : ''}}" bindtap="selectType" data-type="found">招领</view>
+    <view class="picker-item {{currentType === 'sale' ? 'selected' : ''}}" bindtap="selectType" data-type="sale">出售</view>
+    <view class="picker-item {{currentType === 'wanted' ? 'selected' : ''}}" bindtap="selectType" data-type="wanted">求购</view>
+  </view>
+</view>

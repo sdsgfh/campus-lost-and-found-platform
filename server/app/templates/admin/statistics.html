@@ -1,0 +1,86 @@
+{% extends "admin/layout.html" %}
+{% block title %}数据统计{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">数据统计</h1>
+</div>
+
+<!-- 统计卡片 -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">总用户数</div>
+            <div class="card-body">
+                <h5 class="card-title" id="statTotalUsers">0</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">总发布数</div>
+            <div class="card-body">
+                <h5 class="card-title" id="statTotalPosts">0</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">总交易数</div>
+            <div class="card-body">
+                <h5 class="card-title" id="statTotalTransactions">0</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">认证率</div>
+            <div class="card-body">
+                <h5 class="card-title" id="statAuthRate">0%</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 图表区域 -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">用户认证分布</div>
+            <div class="card-body" style="height: 220px;">
+                <canvas id="authChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">发布类型分布</div>
+            <div class="card-body" style="height: 220px;">
+                <canvas id="postTypeChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                每日趋势
+                <span class="float-end">
+                    <button class="btn btn-sm btn-outline-secondary active" data-range="7">7天</button>
+                    <button class="btn btn-sm btn-outline-secondary" data-range="30">30天</button>
+                    <button class="btn btn-sm btn-outline-secondary" data-range="90">90天</button>
+                </span>
+            </div>
+            <div class="card-body" style="height: 300px;">
+                <canvas id="dailyTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="/static/admin/js/statistics.js"></script>
+{% endblock %}

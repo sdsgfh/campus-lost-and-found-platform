@@ -1,0 +1,77 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="chat-container">
+  <!-- 自定义导航栏（适配刘海屏） -->
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="nav-back" bindtap="goBack">
+        <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+      </view>
+      <view class="user-info" bindtap="goToUserProfile">
+        <image class="avatar" src="{{otherUser.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+        <text class="nickname">{{otherUser.nickname}}</text>
+      </view>
+      <view class="nav-right" bindtap="showMore">
+        <text>···</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关联帖子信息 -->
+  <view class="post-info" wx:if="{{postTitle}}">
+    <text class="post-label">正在沟通：</text>
+    <text class="post-title">{{postTitle}}</text>
+  </view>
+
+  <!-- 聊天区域 -->
+  <scroll-view 
+    scroll-y 
+    class="chat-scroll" 
+    scroll-into-view="lastMessage" 
+    scroll-with-animation 
+    bindscrolltolower="loadMore"
+    enable-back-to-top="true"
+  >
+    <view class="message-list">
+      <view wx:for="{{messageList}}" wx:key="id" class="message-item {{item.sender_id === myId ? 'me' : 'other'}}">
+        <!-- 自己的头像 -->
+        <image class="avatar" wx:if="{{item.sender_id === myId}}" src="{{myAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+        <!-- 对方的头像 -->
+        <image class="avatar" wx:if="{{item.sender_id !== myId}}" src="{{otherUser.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+
+        <view class="content-wrapper">
+          <view wx:if="{{item.msg_type === 'text'}}" class="bubble">
+            <text>{{item.content}}</text>
+          </view>
+          <!-- 修复：增加msg-id绑定，图片样式强制显示 -->
+          <view wx:elif="{{item.msg_type === 'image'}}" 
+                class="bubble image-bubble" 
+                bindtap="previewImage" 
+                data-url="{{item.image_url}}"
+                data-msg-id="{{item.id}}">
+            <image src="{{item.image_url}}" mode="aspectFill" class="chat-image"></image>
+          </view>
+          <text class="time">{{item.created_at}}</text>
+        </view>
+      </view>
+      <view id="lastMessage"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部输入区域 -->
+  <view class="input-area">
+    <input 
+      class="text-input" 
+      placeholder="请输入消息" 
+      bindinput="onInput" 
+      value="{{inputText}}" 
+      maxlength="500" 
+      bindconfirm="sendMessage"
+      confirm-type="send"
+    />
+    <view class="upload-btn" bindtap="chooseImage">
+      <image src="/images/上传2.png" class="upload-icon" mode="widthFix"></image>
+    </view>
+  </view>
+</view>

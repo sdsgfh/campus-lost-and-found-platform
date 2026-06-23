@@ -1,0 +1,1 @@
+管理员创建的命令 flask create-admin

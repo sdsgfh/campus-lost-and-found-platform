@@ -1,0 +1,138 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page-wrapper">
+  <!-- 导航栏 -->
+  <view class="nav-box" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar">
+      <view class="nav-title">失物招领</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar-section">
+    <view class="search-bar">
+      <view class="search-input-box" bindtap="goToSearch">
+        <image class="search-icon-img" src="/images/首页-搜索.png" mode="aspectFit"></image>
+        <text class="search-placeholder">搜索书本、钥匙、校园卡...</text>
+      </view>
+      <view class="filter-btn" bindtap="openFilter">
+        <image src="/images/筛选.png" class="filter-img" mode="widthFix"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- Tab -->
+  <view class="tab-section">
+    <view class="tab-container">
+      <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-index="0">
+        寻物
+      </view>
+      <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-index="1">
+        招领
+      </view>
+      <view class="tab-indicator" style="{{indicatorStyle}}"></view>
+    </view>
+  </view>
+
+  <!-- 内容滚动区域 -->
+  <view class="list-section">
+    <scroll-view scroll-y class="content-scroll" bindscrolltolower="loadMore">
+      <view class="content-list">
+        <view class="card" wx:for="{{cardList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+          <view class="card-img">
+            <image wx:if="{{item.images && item.images[0]}}" src="{{item.images[0]}}" mode="aspectFill" class="real-img"></image>
+            <image wx:else src="/images/default.png" mode="aspectFill" class="real-img"></image>
+            <view wx:if="{{item.is_protected}}" class="protected-tag">保护期</view>
+          </view>
+          <view class="card-info">
+            <text class="card-title">{{item.title}}</text>
+            <text class="card-location">{{item.location}}</text>
+            <text class="card-time">{{item.created_at}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{cardList.length === 0 && !loading && !loadFailed}}" class="empty-tip">暂无内容</view>
+      <view class="error-tip" wx:if="{{loadFailed}}">
+        <text>加载失败，请重试</text>
+        <button bindtap="reloadData" class="refresh-btn">刷新</button>
+      </view>
+      <view wx:if="{{loadingMore}}" class="loading-status">加载中...</view>
+      <view wx:elif="{{!hasMore && cardList.length > 0}}" class="loading-status">没有更多了</view>
+    </scroll-view>
+  </view>
+
+  <!-- 发布按钮 -->
+  <view class="publish-btn" bindtap="goToPublish">
+    <image src="/images/上传.png" class="publish-img" mode="widthFix"></image>
+  </view>
+
+  <!-- 筛选弹窗 -->
+  <view class="overlay" wx:if="{{showFilter}}" bindtap="closeFilter"></view>
+  <view class="filter-panel {{showFilter ? 'active' : ''}}">
+    <view class="panel-header">
+      <view class="panel-header-left"></view>
+      <text class="panel-title">筛选</text>
+      <view class="close-icon" bindtap="closeFilter">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#666"></path>
+        </svg>
+      </view>
+    </view>
+
+    <view class="filter-group">
+      <view class="group-title-with-icon">
+        <image src="/images/分类.png" class="group-icon" mode="aspectFit"></image>
+        <text>分类</text>
+      </view>
+      <view class="option-grid grid-3">
+        <view class="option-tag {{selectedCategory === '全部' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="全部">全部</view>
+        <view class="option-tag {{selectedCategory === '教材书籍' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="教材书籍">教材书籍</view>
+        <view class="option-tag {{selectedCategory === '数码电子' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="数码电子">数码电子</view>
+        <view class="option-tag {{selectedCategory === '服饰鞋包' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="服饰鞋包">服饰鞋包</view>
+        <view class="option-tag {{selectedCategory === '美妆护肤' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="美妆护肤">美妆护肤</view>
+        <view class="option-tag {{selectedCategory === '生活用品' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="生活用品">生活用品</view>
+        <view class="option-tag {{selectedCategory === '文具办公' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="文具办公">文具办公</view>
+        <view class="option-tag {{selectedCategory === '体育用品' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="体育用品">体育用品</view>
+        <view class="option-tag {{selectedCategory === '其他' ? 'selected' : ''}}" bindtap="selectOption" data-group="category" data-value="其他">其他</view>
+      </view>
+    </view>
+
+    <view class="filter-group">
+      <view class="group-title-with-icon">
+        <image src="/images/地点.png" class="group-icon" mode="aspectFit"></image>
+        <text>地点</text>
+      </view>
+      <view class="option-grid grid-3">
+        <view class="option-tag {{selectedLocation === '全部' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="全部">全部</view>
+        <view class="option-tag {{selectedLocation === '教学区' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="教学区">教学区</view>
+        <view class="option-tag {{selectedLocation === '图书馆' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="图书馆">图书馆</view>
+        <view class="option-tag {{selectedLocation === '宿舍区' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="宿舍区">宿舍区</view>
+        <view class="option-tag {{selectedLocation === '餐厅' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="餐厅">餐厅</view>
+        <view class="option-tag {{selectedLocation === '操场' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="操场">操场</view>
+        <view class="option-tag {{selectedLocation === '校门口' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="校门口">校门口</view>
+        <view class="option-tag {{selectedLocation === '其他' ? 'selected' : ''}}" bindtap="selectOption" data-group="location" data-value="其他">其他</view>
+      </view>
+    </view>
+
+    <view class="filter-group">
+      <view class="group-title-with-icon">
+        <image src="/images/时间.png" class="group-icon" mode="aspectFit"></image>
+        <text>时间</text>
+      </view>
+      <view class="option-grid grid-2">
+        <view class="option-tag {{selectedTime === '24小时内' ? 'selected' : ''}}" bindtap="selectOption" data-group="time" data-value="24小时内">24小时内</view>
+        <view class="option-tag {{selectedTime === '3天内' ? 'selected' : ''}}" bindtap="selectOption" data-group="time" data-value="3天内">3天内</view>
+        <view class="option-tag {{selectedTime === '7天内' ? 'selected' : ''}}" bindtap="selectOption" data-group="time" data-value="7天内">7天内</view>
+        <view class="option-tag {{selectedTime === '14天内' ? 'selected' : ''}}" bindtap="selectOption" data-group="time" data-value="14天内">14天内</view>
+      </view>
+    </view>
+
+    <view class="panel-footer">
+      <button class="btn-reset" bindtap="resetFilter">重置</button>
+      <button class="btn-confirm" bindtap="confirmFilter">确认</button>
+    </view>
+  </view>
+</view>

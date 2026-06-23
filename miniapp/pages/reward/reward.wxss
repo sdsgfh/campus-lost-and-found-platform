@@ -1,0 +1,175 @@
+/* pages/reward/reward.wxss */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+page {
+  background-color: #e6f2e6dd;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.reward-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75rpx;
+  padding: 90rpx 24rpx 4rpx;
+  background: #A5CFA9;
+}
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+}
+.title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+.right {
+  width: 60rpx;
+}
+.placeholder {
+  width: 60rpx; /* 占位，保持导航栏布局对称 */
+}
+.points-card {
+  background: rgba(254, 255, 254, 0.87);
+  margin: 24rpx;
+  padding: 48rpx 32rpx;
+  border-radius: 24rpx;
+  color: #2E7D32;
+  text-align: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+.points-value {
+  font-size: 80rpx;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.points-label {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+.today-points {
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  opacity: 0.8;
+}
+
+.honor-card {
+  background: rgba(254, 255, 254, 0.87);
+  margin: 24rpx;
+  padding: 32rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+.honor-title {
+  font-size: 28rpx;
+  color: #2E7D32;
+  margin-bottom: 16rpx;
+}
+.honor-name {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #2E7D32;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+}
+.honor-icon {
+  width: 70rpx;
+  height: 70rpx;
+}
+.next-honor {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+  text-align: center;
+}
+.credit-tip {
+  font-size: 24rpx;
+  color: #ff9800;
+  background: #fff3e0;
+  padding: 12rpx 20rpx;
+  border-radius: 30rpx;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2E7D32;
+  margin: 24rpx 24rpx 16rpx;
+}
+
+.log-scroll {
+  width: calc(100vh - 900rpx);
+  margin: 10rpx 13rpx;
+  padding-bottom: 20rpx;
+}
+.log-list {
+  padding: 0;
+}
+.log-item {
+  background: white;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+  box-sizing: border-box;
+}
+.log-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-right: 16rpx;
+}
+.log-reason {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+  word-break: break-all;
+}
+.log-time {
+  font-size: 22rpx;
+  color: #999;
+}
+.log-change {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #2E7D32;
+  margin-left: 16rpx;
+  white-space: nowrap;
+}
+
+.loading-more, .no-more, .empty {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 26rpx;
+  color: #999;
+}
+.empty {
+  padding: 80rpx 0;
+}

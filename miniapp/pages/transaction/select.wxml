@@ -1,0 +1,35 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="select-container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <!-- 替换为图片图标（推荐用本地图片，也可改用iconfont） -->
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+      <!-- 备选：用文字图标 + 样式美化
+      <text class="back-icon">←</text>
+      -->
+    </view>
+    <text class="title">选择对接者</text>
+    <view class="right"></view>
+  </view>
+
+  <view class="content">
+    <view wx:if="{{candidates.length === 0}}" class="empty-tip">
+      <text class="empty-text">暂无对接者，请先与意向用户私聊沟通</text>
+    </view>
+    <view wx:else>
+      <view class="list">
+        <view class="candidate-item" wx:for="{{candidates}}" wx:key="user_id" bindtap="selectCandidate" data-user="{{item}}">
+          <image class="avatar" src="{{item.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+          <view class="info">
+            <text class="nickname">{{item.nickname}}</text>
+            <text class="last-time">最近聊天：{{item.last_message_time}}</text>
+          </view>
+          <view class="arrow-icon">></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

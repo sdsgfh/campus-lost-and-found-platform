@@ -1,0 +1,177 @@
+/* pages/profile/edit.wxss */
+page {
+  background-color: #e6f2e6dd;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 100vh;
+}
+
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.edit-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 自定义导航栏（核心优化） */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  padding: 90rpx 24rpx 4rpx;
+  background: #A5CFA9;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+.back-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+}
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+.nav-right {
+  width: 60rpx;
+}
+
+/* 表单滚动区域 */
+.form-container {
+  padding: 40rpx 30rpx;
+}
+
+/* 通用表单项样式 */
+.form-item {
+  margin-bottom: 50rpx;
+  position: relative;
+}
+.label {
+  font-size: 32rpx;
+  color: #3c7f42;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+/* 头像项样式（美化） */
+.avatar-item {
+  text-align: center;
+}
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.avatar {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  border: 6rpx solid #f0f8f0;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.08);
+}
+.change-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60rpx;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.253));
+  border-radius: 0 0 90rpx 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.change-text {
+  color: #ffffff;
+  font-size: 26rpx;
+  padding: 4rpx 16rpx;
+  background: rgba(99, 160, 102, 0.8);
+  border-radius: 20rpx;
+}
+
+/* 输入框项样式 */
+.input-item, .textarea-item {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  border: 1rpx solid #f0f0f0;
+}
+.input, .textarea {
+  width: 100%;
+  font-size: 30rpx;
+  color: #333333;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-sizing: border-box;
+}
+.input {
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.textarea {
+  height: 180rpx;
+  resize: none;
+  line-height: 1.6;
+}
+.input::placeholder, .textarea::placeholder {
+  color: #999999;
+  font-size: 28rpx;
+}
+.word-count {
+  position: absolute;
+  right: 24rpx;
+  bottom: 24rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+/* 提交按钮样式（美化） */
+.submit-btn-box {
+  margin-top: 80rpx;
+  padding: 0 10rpx;
+}
+.submit-btn {
+  width: 100%;
+  height: 100rpx;
+  line-height: 80rpx;
+  background:#83c095;
+  color: #ffffff;
+  border-radius: 50rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  border: none;
+}
+.submit-btn[disabled] {
+  opacity: 0.6;
+  background: #cccccc;
+  box-shadow: none;
+}
+/* 按钮点击态 */
+.submit-btn:not([disabled]):active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(46, 125, 50, 0.15);
+  transition: all 0.2s ease;
+}
+
+/* 移除默认样式 */
+button::after {
+  border: none;
+}

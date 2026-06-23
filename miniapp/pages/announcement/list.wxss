@@ -1,0 +1,95 @@
+/* pages/announcement/list.wxss */
+page {
+  background: #E6F2E6;
+}
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  z-index: -1;
+}
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 导航：核心适配刘海屏 */
+.nav-box {
+  background: #A5CFA9;
+  color: #207F4C;
+  box-sizing: border-box; /* 关键：padding计入高度，不溢出 */
+}
+.nav-bar {
+  height: 44px; /* 导航栏主体高度 */
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+}
+.nav-back {
+  width: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 让返回图标居中，避免偏上 */
+}
+.back-img {
+  width: 20rpx;
+  height: 30rpx;
+}
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+.nav-right {
+  width: 60rpx;
+}
+
+/* 列表：移除WXSS中的{{}}，只保留基础样式 */
+.scroll {
+  width: 100%;
+  box-sizing: border-box;
+  transform: translateZ(0); /* 硬件加速 */
+}
+.list {
+  padding: 24rpx;
+}
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.03);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+.card-header .title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.card-header .time {
+  font-size: 24rpx;
+  color: #999;
+}
+.card-content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.loading-more,.no-more,.empty {
+  text-align: center;
+  padding: 40rpx;
+  color: #999;
+}

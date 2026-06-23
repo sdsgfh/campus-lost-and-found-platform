@@ -1,0 +1,58 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="reward-container">
+  <!-- 自定义导航 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="title">奖励中心</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- 积分卡片 -->
+  <view class="points-card">
+    <view class="points-value">{{info.points}}</view>
+    <text class="points-label">当前积分</text>
+    <view class="today-points">今日已获 {{info.today_points}} / {{info.max_daily}}</view>
+  </view>
+
+  <!-- 称号卡片 -->
+  <view class="honor-card">
+    <view class="honor-title">当前称号</view>
+    <view class="honor-name" wx:if="{{info.honor}}">
+      <!-- 荣誉称号图标 -->
+      <image wx:if="{{info.honor === '拾光者'}}" src="/images/拾光.png" class="honor-icon" mode="widthFix"></image>
+      <image wx:elif="{{info.honor === '暖心达人'}}" src="/images/暖心.png" class="honor-icon" mode="widthFix"></image>
+      <image wx:elif="{{info.honor === '校园雷锋'}}" src="/images/校园.png" class="honor-icon" mode="widthFix"></image>
+      <image wx:elif="{{info.honor === '公益之星'}}" src="/images/公益.png" class="honor-icon" mode="widthFix"></image>
+      {{info.honor}}
+    </view>
+    <view class="honor-name" wx:else>暂无称号</view>
+    <view class="next-honor">
+      <text wx:if="{{info.next_honor}}">下一个：{{info.next_honor}} (需{{info.next_points}}积分)</text>
+      <text wx:else>{{info.next_honor}}</text>
+    </view>
+    <view class="credit-tip">信誉分：{{info.credit_score}}（需≥60才能获得称号）</view>
+  </view>
+
+  <!-- 积分明细标题 -->
+  <view class="section-title">积分明细</view>
+
+  <!-- 积分明细列表 -->
+  <scroll-view scroll-y class="log-scroll" bindscrolltolower="loadMore">
+    <view class="log-list">
+      <view class="log-item" wx:for="{{logList}}" wx:key="id">
+        <view class="log-info">
+          <text class="log-reason">{{item.reason}}</text>
+          <text class="log-time">{{item.created_at}}</text>
+        </view>
+        <text class="log-change">+{{item.change}}</text>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!hasMore && logList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{logList.length === 0 && !loading}}">暂无积分记录</view>
+  </scroll-view>
+</view>

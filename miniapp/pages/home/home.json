@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "校觅",
+  "navigationStyle": "custom", 
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

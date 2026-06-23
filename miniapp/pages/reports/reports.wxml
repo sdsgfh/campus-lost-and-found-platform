@@ -1,0 +1,120 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="reports-container">
+  <!-- 自定义导航 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image class="back-img" src="/images/返回.png" mode="aspectFit"></image>
+    </view>
+    <text class="title">举报申诉记录</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'report' ? 'active' : ''}}" bindtap="switchTab" data-tab="report">我的举报</view>
+    <view class="tab-item {{activeTab === 'appeal' ? 'active' : ''}}" bindtap="switchTab" data-tab="appeal">我的申诉</view>
+  </view>
+
+  <!-- 排序 -->
+  <view class="sort-bar">
+    <text class="sort-item {{sort === 'time' ? 'active' : ''}}" bindtap="setSort" data-sort="time">按时间</text>
+    <text class="sort-item {{sort === 'status' ? 'active' : ''}}" bindtap="setSort" data-sort="status">按状态</text>
+  </view>
+
+  <!-- 举报列表 -->
+  <scroll-view wx:if="{{activeTab === 'report'}}" scroll-y class="list-scroll" bindscrolltolower="loadMoreReports">
+    <view class="list">
+      <view class="record-item" wx:for="{{reportList}}" wx:key="id" bindtap="showReportPopup" data-item="{{item}}">
+        <view class="item-header">
+          <text class="target">{{item.targetName}}</text>
+          <text class="time">{{item.created_at}}</text>
+        </view>
+        <view class="item-info">
+          <text class="type">{{item.typeText}}</text>
+          <text class="status {{item.status}}">{{item.statusText}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{reportLoadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!reportHasMore && reportList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{reportList.length === 0 && !reportLoading}}">暂无举报记录</view>
+  </scroll-view>
+
+  <!-- 申诉列表 -->
+  <scroll-view wx:else scroll-y class="list-scroll" bindscrolltolower="loadMoreAppeals">
+    <view class="list">
+      <view class="record-item" wx:for="{{appealList}}" wx:key="id" bindtap="showAppealPopup" data-item="{{item}}">
+        <view class="item-header">
+          <text class="target">{{item.targetName}}</text>
+          <text class="time">{{item.created_at}}</text>
+        </view>
+        <view class="item-info">
+          <text class="type">{{item.appealTypeText}}</text>
+          <text class="status {{item.status}}">{{item.statusText}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{appealLoadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!appealHasMore && appealList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{appealList.length === 0 && !appealLoading}}">暂无申诉记录</view>
+  </scroll-view>
+
+  <!-- ====================== 举报详情弹窗 ====================== -->
+  <view class="modal-mask" wx:if="{{showReportModal}}" bindtap="closeReportModal"></view>
+  <view class="modal-content" wx:if="{{showReportModal}}" catchtap="stopPropagation">
+    <view class="modal-header">
+      <text class="modal-title">举报详情</text>
+      <view class="close-icon" bindtap="closeReportModal">×</view>
+    </view>
+    <view class="modal-body">
+      <view class="row"><text class="label">举报类型：</text><text>{{currentReport.typeText}}</text></view>
+      <view class="row"><text class="label">举报时间：</text><text>{{currentReport.created_at}}</text></view>
+      <view class="row"><text class="label">处理状态：</text><text class="status-text {{currentReport.status}}">{{currentReport.statusText}}</text></view>
+      <view class="row"><text class="label">举报理由：</text></view>
+      <view class="content-box">{{currentReport.reason}}</view>
+
+      <view class="row" wx:if="{{currentReport.evidence_images && currentReport.evidence_images.length > 0}}">
+        <text class="label">证据图片：</text>
+      </view>
+      <view class="img-list" wx:if="{{currentReport.evidence_images}}">
+        <image wx:for="{{currentReport.evidence_images}}" wx:key="index" src="{{item}}" class="evidence-img" mode="aspectFill"></image>
+      </view>
+
+      <view class="row" wx:if="{{currentReport.result}}">
+        <text class="label">处理结果：</text>
+        <text>{{currentReport.result}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ====================== 申诉详情弹窗 ====================== -->
+  <view class="modal-mask" wx:if="{{showAppealModal}}" bindtap="closeAppealModal"></view>
+  <view class="modal-content" wx:if="{{showAppealModal}}" catchtap="stopPropagation">
+    <view class="modal-header">
+      <text class="modal-title">申诉详情</text>
+      <view class="close-icon" bindtap="closeAppealModal">×</view>
+    </view>
+    <view class="modal-body">
+      <view class="row"><text class="label">申诉类型：</text><text>{{currentAppeal.appealTypeText}}</text></view>
+      <view class="row"><text class="label">申诉时间：</text><text>{{currentAppeal.created_at}}</text></view>
+      <view class="row"><text class="label">处理状态：</text><text class="status-text {{currentAppeal.status}}">{{currentAppeal.statusText}}</text></view>
+      <view class="row"><text class="label">申诉理由：</text></view>
+      <view class="content-box">{{currentAppeal.reason}}</view>
+
+      <view class="row" wx:if="{{currentAppeal.evidence_images && currentAppeal.evidence_images.length > 0}}">
+        <text class="label">证据图片：</text>
+      </view>
+      <view class="img-list" wx:if="{{currentAppeal.evidence_images}}">
+        <image wx:for="{{currentAppeal.evidence_images}}" wx:key="index" src="{{item}}" class="evidence-img" mode="aspectFill"></image>
+      </view>
+
+      <view class="row" wx:if="{{currentAppeal.result}}">
+        <text class="label">处理结果：</text>
+        <text>{{currentAppeal.result}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,77 @@
+{% extends "admin/layout.html" %}
+{% block title %}用户反馈{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">用户反馈</h1>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-2">
+        <select class="form-select" id="statusFilter">
+            <option value="">全部状态</option>
+            <option value="pending">待处理</option>
+            <option value="replied">已回复</option>
+        </select>
+    </div>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        叠
+            <th>ID</th>
+            <th>用户ID</th>
+            <th>内容</th>
+            <th>状态</th>
+            <th>提交时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="feedbackTableBody"></tbody>
+</table>
+<div id="pagination" class="pagination"></div>
+
+<!-- 回复模态框 -->
+<div class="modal fade" id="replyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">回复反馈</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="replyFeedbackId">
+                <div class="mb-3">
+                    <label class="form-label">回复内容</label>
+                    <textarea class="form-control" id="replyContent" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="sendReply()">发送</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 反馈详情模态框（新增） -->
+<div class="modal fade" id="feedbackDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">反馈详情</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="feedbackDetailBody">
+                <!-- 动态填充内容 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/admin/js/feedbacks.js"></script>
+{% endblock %}

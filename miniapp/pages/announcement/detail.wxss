@@ -1,0 +1,99 @@
+/* pages/announcement/detail.wxss */
+page {
+  background: #E6F2E6;
+}
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 背景图（和列表页一致） */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* 导航栏（和列表页完全一致） */
+.nav-box {
+  background: #A5CFA9;
+  color: #207F4C;
+  box-sizing: border-box;
+}
+.nav-bar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+}
+.nav-back {
+  width: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-img {
+  width: 20rpx;
+  height: 30rpx;
+}
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+.nav-right {
+  width: 60rpx;
+}
+
+/* 内容滚动区域（移除{{}}，只保留基础样式） */
+.content-scroll {
+  width: 100%;
+  box-sizing: border-box;
+  transform: translateZ(0); /* 硬件加速 */
+}
+.list {
+  padding: 24rpx;
+}
+
+/* 卡片样式（和列表页一致） */
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.03);
+}
+.card-header {
+  display: flex;
+  flex-direction: column; /* 详情页标题和时间竖向排列 */
+  margin-bottom: 16rpx;
+}
+.card-header .title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1e2e1e;
+  margin-bottom: 16rpx;
+}
+.card-header .time {
+  font-size: 24rpx;
+  color: #999;
+}
+.card-content {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap; /* 保留换行 */
+}
+
+/* 空状态（和列表页一致） */
+.empty {
+  text-align: center;
+  padding: 40rpx;
+  color: #999;
+  font-size: 28rpx;
+}

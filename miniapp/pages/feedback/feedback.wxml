@@ -1,0 +1,45 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="feedback-container">
+  <!-- 自定义导航栏（替换为图片返回图标） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="title">意见反馈</text>
+    <view class="right"></view>
+  </view>
+
+  <scroll-view scroll-y class="form-scroll">
+    <view class="form-container">
+      <view class="form-item">
+        <text class="label">反馈内容 <text class="required">*</text></text>
+        <!-- 修复字数统计定位问题 -->
+        <view class="textarea-wrap">
+          <textarea class="textarea" placeholder="请详细描述您的意见或问题（最多300字）" maxlength="300" bindinput="onContentInput" value="{{content}}" />
+          <text class="word-count">{{content.length}}/300</text>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="label">证据图片 <text class="optional">（可选）</text></text>
+        <view class="upload-area">
+          <view class="upload-preview" wx:for="{{imageList}}" wx:key="index">
+            <image src="{{item}}" mode="aspectFill" class="preview-img"></image>
+            <view class="remove-btn" bindtap="removeImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="upload-btn" wx:if="{{imageList.length < 3}}" bindtap="chooseImage">
+            <text class="plus">+</text>
+            <text class="tip">上传</text>
+          </view>
+        </view>
+        <text class="upload-tip">最多3张，支持jpg/png，单张≤5MB</text>
+      </view>
+
+      <view class="submit-btn-box">
+        <button class="submit-btn" bindtap="submitFeedback" disabled="{{submitting}}">{{submitting ? '提交中...' : '提交反馈'}}</button>
+      </view>
+    </view>
+  </scroll-view>
+</view>

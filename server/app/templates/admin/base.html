@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校觅后台管理 - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/admin.css') }}">
+</head>
+<body>
+    <div class="app">
+        <div class="sidebar">
+            <div class="logo">校觅管理</div>
+            <ul class="nav">
+                <li><a href="/admin/dashboard">首页看板</a></li>
+                <li><a href="/admin/users">用户管理</a></li>
+                <li><a href="/admin/posts">内容管理</a></li>
+                <li><a href="/admin/reports">举报管理</a></li>
+                <li><a href="/admin/appeals">申诉管理</a></li>
+                <li><a href="/admin/transactions">交易认领</a></li>
+                <li><a href="/admin/banners">轮播图管理</a></li>
+                <li><a href="/admin/feedbacks">反馈管理</a></li>
+                <li><a href="/admin/notifications">通知管理</a></li>
+                <li><a href="/admin/audit-logs">审核日志</a></li>
+                <li><a href="/admin/statistics">数据统计</a></li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="header">
+                <span>欢迎, {{ admin.real_name or admin.username }}</span>
+                <button id="logoutBtn">退出</button>
+            </div>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='admin/js/admin.js') }}"></script>
+    <script>
+        // 检查登录状态
+        (function() {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                window.location.href = '/admin/login';
+                return;
+            }
+            fetch('/admin/api/check-auth', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.code === 1001) {
+                    window.location.href = '/admin/change-password';
+                } else if (data.code !== 0) {
+                    localStorage.removeItem('admin_token');
+                    window.location.href = '/admin/login';
+                }
+            })
+            .catch(() => {
+                window.location.href = '/admin/login';
+            });
+
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                fetch('/admin/logout', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                .then(() => {
+                    localStorage.removeItem('admin_token');
+                    window.location.href = '/admin/login';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

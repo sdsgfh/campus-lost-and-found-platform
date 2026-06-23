@@ -1,0 +1,38 @@
+<view class="page-wrapper">
+  <image class="page-bg" src="/images/波浪.png" mode="aspectFill"></image>
+  
+  <!-- 导航栏 -->
+  <view class="nav-box" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar">
+      <view class="nav-back" bindtap="goBack">
+        <image class="back-img" src="/images/返回.png" mode="widthFix"></image>
+      </view>
+      <view class="nav-title">公告列表</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- 滚动列表（核心：绑定动态高度） -->
+  <scroll-view 
+    class="scroll" 
+    scroll-y 
+    style="height: {{scrollHeight}};"
+    bindscrolltolower="loadMore"
+  >
+    <view class="list">
+      <!-- 列表项 -->
+      <view class="card" wx:for="{{list}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="card-header">
+          <text class="title">{{item.title}}</text>
+          <text class="time">{{item.create_time}}</text>
+        </view>
+        <view class="card-content line-clamp-2">{{item.content}}</view>
+      </view>
+
+      <!-- 状态提示 -->
+      <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+      <view class="no-more" wx:elif="!hasMore && list.length > 0">已加载全部</view>
+      <view class="empty" wx:elif="list.length === 0 && !loading">暂无公告</view>
+    </view>
+  </scroll-view>
+</view>

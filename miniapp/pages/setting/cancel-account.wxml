@@ -1,0 +1,32 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="cancel-container">
+  <!-- 自定义导航栏（替换为图片返回图标） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="title">账号注销</text>
+    <view class="right"></view>
+  </view>
+
+  <scroll-view scroll-y class="form-scroll">
+    <view class="form-container">
+      <view class="form-item">
+        <text class="label">学号/工号</text>
+        <input class="input" placeholder="请输入" bindinput="onStudentIdInput" value="{{studentId}}" />
+      </view>
+      <view class="form-item">
+        <text class="label">姓名</text>
+        <input class="input" placeholder="请输入" bindinput="onNameInput" value="{{name}}" />
+      </view>
+
+      <view class="warning-box">
+        <text>账号注销后，所有个人数据（认证信息、发布记录、聊天记录、收藏、信誉分、奖励积分等）将彻底删除，交易记录将保留必要信息用于平台统计，注销后不可恢复。</text>
+      </view>
+
+      <button class="cancel-btn" bindtap="submitCancel" disabled="{{submitting}}">{{submitting ? '提交中...' : '确认注销'}}</button>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,294 @@
+/* 全局重置 */
+page {
+  background: #e6f2e6;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* 外层容器：高度100%，overflow:hidden */
+.page-wrapper {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 顶部固定区域：导航栏 + 搜索栏 */
+.top-fixed {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #A5CFA9;
+}
+
+/* 导航栏 */
+.nav-box {
+  width: 100%;
+  height: 162rpx;
+  box-sizing: border-box;
+  padding-top: var(--status-bar-height, 20px);
+}
+
+.nav-bar {
+  height: 178rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 16rpx;
+  box-sizing: border-box;
+}
+
+.nav-back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.back-icon {
+  padding-left: 10rpx;
+  width: 20rpx;
+  height: 32rpx;
+  object-fit: contain;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-right {
+  width: 60rpx;
+  flex-shrink: 0;
+}
+
+/* 搜索栏 */
+.search-bar-section {
+  width: 100%;
+  padding: 12rpx 36rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.search-bar {
+  width: 100%;
+  position: relative;
+}
+
+/* 视觉层 */
+.search-input-box {
+  width: 100%;
+  height: 80rpx;
+  background: #fff;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(46, 125, 50, 0.05);
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.search-icon-img {
+  width: 52rpx;
+  height: 52rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.search-keyword {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 真实输入框 */
+.real-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80rpx;
+  background: transparent;
+  border-radius: 40rpx;
+  padding-left: 92rpx;
+  padding-right: 24rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+  z-index: 2;
+  border: none;
+  outline: none;
+}
+
+/* 可滚动内容区域（核心修复） */
+.content-scroll {
+  width: 100%;
+  height: calc(100vh - 88rpx - var(--status-bar-height, 20px) - 100rpx);
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.305);
+}
+/* 清空历史图标 */
+.clear-icon {
+  width: 40rpx;
+  height: 40rpx;
+  padding-right: 10rpx;
+  object-fit: contain;
+}
+.content-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 历史/热门搜索样式 */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 24rpx 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1e2e1e;
+}
+
+.clear-btn {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.history-tags, .hot-tags {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 24rpx;
+  gap: 16rpx;
+}
+
+.history-tag, .hot-tag {
+  background-color: #f0f4f0;
+  padding: 16rpx 32rpx;
+  border-radius: 36rpx;
+  font-size: 26rpx;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.history-tag:active, .hot-tag:active {
+  background-color: #e0e8e0;
+}
+
+/* 搜索结果区域 */
+.type-filter {
+  display: flex;
+  padding: 0 24rpx 20rpx;
+  background: #A5CFA9;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.type-item {
+  flex: 1;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  padding: 16rpx 0;
+  border-bottom: 4rpx solid transparent;
+}
+
+.type-item.active {
+  color: #2E7D32;
+  border-bottom-color: #2E7D32;
+  font-weight: 500;
+}
+
+.result-list {
+  padding: 24rpx;
+}
+
+/* 卡片样式 */
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  display: flex;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.card-img {
+  width: 200rpx;
+  height: 200rpx;
+  flex-shrink: 0;
+  background-color: #F8F8F8;
+}
+
+.real-img {
+  width: 100%;
+  height: 100%;
+}
+
+.card-info {
+  flex: 1;
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-title {
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.card-type {
+  font-size: 26rpx;
+  color: #2E7D32;
+  margin-bottom: 8rpx;
+}
+
+.card-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 状态提示 */
+.empty-tip, .error-tip {
+  text-align: center;
+  padding: 80rpx 0;
+  color: #999;
+}
+
+.refresh-btn {
+  background: #2E7D32;
+  color: #fff;
+  border-radius: 36rpx;
+  padding: 0 30rpx;
+  margin-top: 20rpx;
+}
+
+.loading-more, .no-more {
+  text-align: center;
+  padding: 20rpx 0;
+  color: #999;
+}

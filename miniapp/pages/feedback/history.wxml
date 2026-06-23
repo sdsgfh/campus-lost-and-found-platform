@@ -1,0 +1,86 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="history-container">
+  <!-- 自定义导航栏（统一图片返回图标） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="title">反馈历史</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- 反馈列表 -->
+  <scroll-view scroll-y class="list-scroll" bindscrolltolower="loadMore">
+    <view class="list">
+      <view class="feedback-item" wx:for="{{list}}" wx:key="id" bindtap="showDetailModal" data-item="{{item}}">
+        <view class="item-header">
+          <text class="content line-clamp-2">{{item.content}}</text>
+          <text class="status {{item.status}}">{{item.status_text}}</text>
+        </view>
+        <view class="item-footer">
+          <text class="time">{{item.created_at}}</text>
+          <text wx:if="{{item.reply_content}}" class="replied">有回复</text>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!hasMore && list.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{list.length === 0 && !loading}}">暂无反馈记录</view>
+  </scroll-view>
+
+  <!-- 反馈详情弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideDetailModal"></view>
+  <view class="modal-container" wx:if="{{showModal}}">
+    <view class="modal-header">
+      <text class="modal-title">反馈详情</text>
+      <view class="close-btn" bindtap="hideDetailModal">×</view>
+    </view>
+    <scroll-view scroll-y class="modal-content">
+      <!-- 反馈基本信息 -->
+      <view class="detail-item">
+        <text class="detail-label">反馈内容：</text>
+        <text class="detail-value">{{currentItem.content}}</text>
+      </view>
+
+      <!-- 反馈图片 -->
+      <view class="detail-item" wx:if="{{currentItem.images && currentItem.images.length > 0}}">
+        <text class="detail-label">证据图片：</text>
+        <view class="images-wrap">
+          <image 
+            wx:for="{{currentItem.images}}" 
+            wx:key="index" 
+            src="{{item}}" 
+            mode="aspectFill" 
+            class="detail-img"
+            bindtap="previewImage"
+            data-urls="{{currentItem.images}}"
+            data-index="{{index}}"
+          ></image>
+        </view>
+      </view>
+
+      <!-- 反馈状态 -->
+      <view class="detail-item">
+        <text class="detail-label">反馈状态：</text>
+        <text class="detail-value status {{currentItem.status}}">{{currentItem.status_text}}</text>
+      </view>
+
+      <!-- 提交时间 -->
+      <view class="detail-item">
+        <text class="detail-label">提交时间：</text>
+        <text class="detail-value">{{currentItem.created_at}}</text>
+      </view>
+
+      <!-- 回复内容（有回复时显示） -->
+      <view class="detail-item reply-item" wx:if="{{currentItem.reply_content}}">
+        <text class="detail-label">平台回复：</text>
+        <view class="reply-content">
+          <text>{{currentItem.reply_content}}</text>
+        </view>
+        <text class="reply-time" wx:if="{{currentItem.reply_at}}">回复时间：{{currentItem.reply_at}}</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

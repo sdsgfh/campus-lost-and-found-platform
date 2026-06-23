@@ -1,0 +1,265 @@
+/* pages/auth/auth.wxss */
+/* 背景图样式 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+page {
+  background-color: #e6f2e6b7;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ======================
+   导航栏：固定死在顶部，永远不动
+====================== */
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 88rpx;
+  background: #A5CFA9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 128rpx 24rpx 45rpx;
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+.nav-back {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-icon {
+  width: 20rpx;
+  height: 20rpx;
+  object-fit: contain;
+}
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+  flex: 1;
+  text-align: center;
+}
+.nav-empty {
+  width: 72rpx;
+}
+
+/* ======================
+   内容正常滚动，不影响导航栏
+====================== */
+.container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content {
+  padding: 0 2rpx;
+  height: auto;
+  min-height: calc(100vh - 88rpx);
+}
+
+/* ===== 卡片通用样式 ===== */
+.card {
+  background: rgba(255, 255, 255, 0.675);
+  border-radius: 36rpx;
+  padding: 40rpx 32rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(15rpx);
+  border: 1rpx solid rgba(255,255,255,0.5);
+}
+
+/* ===== 卡片标题 ===== */
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #2E7D32;
+  margin-bottom: 36rpx;
+  position: relative;
+  padding-left: 48rpx;
+  display: flex;
+  align-items: center;
+}
+.title-icon {
+  width: 36rpx;
+  height: 36rpx;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 12rpx;
+}
+.card-title::before {
+  content: '';
+  position: absolute;
+  left: 16rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 30rpx;
+  background-color: #2E7D32;
+  border-radius: 6rpx;
+}
+
+/* ===== 身份选择 ===== */
+.role-group {
+  display: flex;
+  gap: 66rpx;
+  padding-left:40rpx;
+  padding-right:40rpx;
+}
+.role-item {
+  flex: 1;
+  height: 96rpx;
+  border-radius: 48rpx;
+  border: 2rpx solid #d0dcd0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  position: relative;
+  overflow: hidden;
+  color: #555;
+}
+.role-item.active {
+  background: #A5CFA9;
+  color: #fff;
+  box-shadow: 0 8rpx 20rpx rgba(165, 207, 169, 0.5);
+  border-color: transparent;
+}
+.role-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== 表单项 ===== */
+.form-item {
+  margin-bottom: 36rpx;
+}
+.label {
+  display: block;
+  font-size: 28rpx;
+  color: #4a5a4a;
+  margin-bottom: 16rpx;
+  font-weight: 500;
+}
+.input {
+  height: 100rpx;
+  background: rgba(247, 248, 247, 0.9);
+  border-radius: 28rpx;
+  padding: 0 32rpx;
+  font-size: 30rpx;
+  border: 2rpx solid #e0e8e0;
+  transition: all 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input:focus {
+  border-color: #2E7D32;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 0 6rpx rgba(46,125,50,0.1);
+}
+
+/* ===== 上传区域 ===== */
+.upload-single {
+  width: 100%;
+  height: 300rpx;
+  background: rgba(247, 248, 247, 0.8);
+  border: 2rpx dashed #b8c9b8;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.upload-single:active {
+  background: rgba(230, 242, 230, 0.95);
+  border-color: #2E7D32;
+  transform: scale(0.98);
+}
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.plus {
+  font-size: 72rpx;
+  color: #2E7D32;
+  margin-bottom: 12rpx;
+  line-height: 1;
+}
+.tip {
+  font-size: 26rpx;
+  color: #2E7D32;
+  font-weight: 500;
+}
+.upload-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.upload-desc {
+  display: block;
+  text-align: center;
+  font-size: 26rpx;
+  color: #6b7a6b;
+  margin-top: 24rpx;
+}
+
+/* ===== 按钮区域 ===== */
+.btn-box {
+  margin-top: 60rpx;
+  margin-bottom: 20rpx;
+}
+.submit-btn {
+  width: 100%;
+  height: 100rpx;
+  line-height: 80rpx;
+  background: #89bd8e;
+  color: #fff;
+  border-radius: 50rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+}
+.submit-btn[disabled] {
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 跳过认证 */
+.skip-box {
+  text-align: center;
+  margin: 40rpx 0 60rpx;
+}
+.skip-link {
+  font-size: 30rpx;
+  color: #669966;
+  text-decoration: underline;
+  padding: 20rpx;
+  transition: color 0.2s;
+}
+.skip-link:active {
+  color: #2E7D32;
+}
+
+/* 隐藏多余样式 */
+.upload-group, .hint {
+  display: none;
+}

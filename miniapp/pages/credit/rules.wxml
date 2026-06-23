@@ -1,0 +1,25 @@
+<view class="page">
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <text class="icon">←</text>
+    </view>
+    <text class="title">信誉规则</text>
+    <view class="right"></view>
+  </view>
+
+  <view class="content">
+    <view class="section">
+      <view class="section-title">加分规则（每月上限20分）</view>
+      <view class="rule-item">• 举报违规内容/用户，审核成立：+2分/次（每日最多2次，同一用户24小时内只计一次）</view>
+      <view class="rule-item">• 连续14天无违规行为：+5分</view>
+      <view class="rule-item">• 连续30天无违规行为：+10分</view>
+    </view>
+    <view class="section">
+      <view class="section-title">扣分规则（无上限）</view>
+      <view class="rule-item">• 发布虚假信息、诈骗、卖假货（投诉审核成立）：-15分/次</view>
+      <view class="rule-item">• 冒领他人物品（投诉审核成立）：-20分/次</view>
+      <view class="rule-item">• 骚扰、辱骂其他用户（投诉审核成立）：-15分/次</view>
+      <view class="rule-item">• 恶意举报：-10分/次</view>
+    </view>
+  </view>
+</view>

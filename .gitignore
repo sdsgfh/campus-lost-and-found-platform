@@ -1,0 +1,95 @@
+# ======================================================
+# Python / Flask 通用
+# ======================================================
+
+# 虚拟环境
+venv/
+env/
+ENV/
+
+# Python 编译缓存
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+
+# 本地配置文件（包含敏感信息）
+.env
+config.py               # 如果你已经用了 .env，config.py 可以忽略
+config.local.py
+
+# 数据库迁移文件（如果你用 Flask-Migrate，保留 migrations/ 是好的，但需要忽略版本文件中的本地数据）
+instance/
+*.db
+*.sqlite3
+*.sqlite
+
+# 日志文件
+*.log
+logs/
+
+# 本地生成的数据文件（用户上传图片）
+server/uploads/
+server/chat_uploads/
+
+# 打包文件
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ======================================================
+# 微信小程序
+# ======================================================
+
+# 小程序本地缓存
+miniapp/.DS_Store
+miniapp/.vscode/
+
+# 小程序打包文件
+miniapp/*.wxapkg
+miniapp/*.zip
+
+# 项目配置文件（注意！如果你在 project.config.json 中有敏感信息，建议忽略，否则保留）
+# 如果你在 project.config.json 中存了 appid，建议忽略并提供一个 example 文件
+miniapp/project.config.json
+miniapp/project.private.config.json
+
+# ======================================================
+# IDE / 操作系统
+# ======================================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm / IntelliJ IDEA
+.idea/
+*.iml
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ======================================================
+# 测试与覆盖率
+# ======================================================
+
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ======================================================
+# 部署与临时文件
+# ======================================================
+
+*.tmp
+*.temp
+.DS_Store

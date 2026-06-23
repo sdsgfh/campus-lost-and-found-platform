@@ -1,0 +1,40 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="detail-container">
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <text class="icon">←</text>
+    </view>
+    <text class="title">反馈详情</text>
+    <view class="right"></view>
+  </view>
+
+  <scroll-view scroll-y class="content-scroll">
+    <view class="detail-card">
+      <view class="info-row">
+        <text class="label">反馈内容：</text>
+        <text class="value">{{detail.content}}</text>
+      </view>
+      <view class="info-row" wx:if="{{detail.images && detail.images.length > 0}}">
+        <text class="label">图片：</text>
+        <view class="image-list">
+          <image wx:for="{{detail.images}}" wx:key="index" src="{{item}}" mode="aspectFill" class="detail-img" bindtap="previewImage" data-url="{{item}}"></image>
+        </view>
+      </view>
+      <view class="info-row">
+        <text class="label">状态：</text>
+        <text class="value status {{detail.status}}">{{detail.status_text}}</text>
+      </view>
+      <view class="info-row" wx:if="{{detail.reply_content}}">
+        <text class="label">回复：</text>
+        <text class="value reply">{{detail.reply_content}}</text>
+        <text class="reply-time">{{detail.reply_time}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">提交时间：</text>
+        <text class="value">{{detail.created_at}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

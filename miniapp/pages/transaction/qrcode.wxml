@@ -1,0 +1,36 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<!-- 统一容器（修复嵌套问题） -->
+<view class="qrcode-container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="title">交易确认二维码</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- 核心内容区 -->
+  <view class="content">
+    <!-- 二维码卡片 -->
+    <view class="qrcode-card">
+      <image class="qrcode-img" src="{{qrcodeData || '/images/qrcode-placeholder.png'}}" mode="widthFix"></image>
+      <text class="tip">二维码有效期10分钟，请尽快扫码确认</text>
+      
+      <!-- 倒计时 -->
+      <view class="countdown" wx:if="{{countdown > 0}}">
+        <text class="countdown-text">剩余 {{countdown}} 秒</text>
+      </view>
+      
+      <!-- 重新生成按钮 -->
+      <button class="regenerate-btn" bindtap="regenerate" wx:if="{{countdown === 0}}">重新生成二维码</button>
+    </view>
+
+    <!-- 功能按钮区 -->
+    <view class="btn-group">
+      <button class="goto-list-btn" bindtap="goToTransactionList">查看交易记录</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,153 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="post-container">
+  <!-- 顶部导航（统一图片返回图标） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="nav-title">{{pageTitle}}</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <scroll-view scroll-y class="form-scroll">
+    <view class="form-container">
+      <!-- 标题/物品名称 -->
+      <view class="form-item">
+        <text class="label">物品名称 <text class="required">*</text></text>
+        <input class="input" placeholder="例如：黑色双肩包" maxlength="20" bindinput="onTitleInput" value="{{title}}" />
+        <text class="word-count">{{title.length}}/20</text>
+      </view>
+
+      <!-- 分类选择 -->
+      <view class="form-item">
+        <text class="label">物品分类 <text class="required">*</text></text>
+        <picker class="picker" range="{{categoryList}}" range-key="name" bindchange="onCategoryChange">
+          <view class="picker-value">{{selectedCategory.name || '请选择分类'}}</view>
+        </picker>
+      </view>
+
+      <!-- 描述 -->
+      <view class="form-item">
+        <text class="label">详细描述 <text class="required">*</text></text>
+        <textarea class="textarea" placeholder="{{descPlaceholder}}" maxlength="200" bindinput="onDescInput" value="{{description}}" />
+        <text class="word-count">{{description.length}}/200</text>
+      </view>
+
+      <!-- 时间（丢失/捡到） -->
+      <view class="form-item time-item" wx:if="{{showTime}}">
+        <text class="label">{{timeLabel}} <text class="required">*</text></text>
+        <view class="time-picker-wrap">
+          <picker mode="date" value="{{timeDate}}" bindchange="onTimeDateChange" class="time-picker">
+            <view class="picker-value">{{timeDate || '请选择日期'}}</view>
+          </picker>
+          <picker mode="time" value="{{timeTime}}" bindchange="onTimeTimeChange" class="time-picker">
+            <view class="picker-value">{{timeTime || '请选择时间'}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 地点（选择器） -->
+      <view class="form-item" wx:if="{{showLocation}}">
+        <text class="label">{{locationLabel}} <text class="required">*</text></text>
+        <picker class="picker" range="{{locationOptions}}" bindchange="onLocationChange">
+          <view class="picker-value">{{selectedLocation || '请选择地点'}}</view>
+        </picker>
+      </view>
+
+      <!-- 新旧成色（出售/求购） -->
+      <view class="form-item" wx:if="{{showCondition}}">
+        <text class="label">{{conditionLabel}} <text class="required">*</text></text>
+        <picker class="picker" range="{{conditionOptions}}" bindchange="onConditionChange">
+          <view class="picker-value">{{selectedCondition || '请选择成色'}}</view>
+        </picker>
+      </view>
+
+      <!-- 价格（出售/求购） -->
+      <view class="form-item" wx:if="{{showPrice}}">
+        <text class="label">{{priceLabel}} <text class="required">*</text></text>
+        <input class="input price-input" type="number" placeholder="例如：29.00" bindinput="onPriceInput" value="{{price}}" />
+      </view>
+
+      <!-- 有效时限 -->
+      <view class="form-item">
+        <text class="label">有效时限 <text class="required">*</text></text>
+        <picker class="picker" range="{{expiryOptions}}" bindchange="onExpiryChange">
+          <view class="picker-value">{{selectedExpiry || '请选择'}}</view>
+        </picker>
+      </view>
+
+      <!-- 图片上传 -->
+      <view class="form-item">
+        <text class="label">{{imageLabel}} <text class="required" wx:if="{{type !== 'wanted'}}">*</text>
+          <text class="optional" wx:else>（可选）</text>
+        </text>
+        <view class="upload-area">
+          <view class="upload-preview" wx:for="{{imageList}}" wx:key="index">
+            <image src="{{item}}" mode="aspectFill" class="preview-img"></image>
+            <view class="remove-btn" bindtap="removeImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="upload-btn" wx:if="{{imageList.length < maxImages}}" bindtap="chooseImage">
+            <text class="plus">+</text>
+            <text class="tip">上传</text>
+          </view>
+        </view>
+        <text class="upload-tip">最多{{maxImages}}张，支持jpg/png，单张≤2MB</text>
+      </view>
+
+      <!-- 提交按钮 -->
+      <view class="submit-btn-box">
+        <button class="submit-btn" bindtap="submitPost" disabled="{{submitting}}">
+          {{submitting ? '提交中...' : '提交审核'}}
+        </button>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 快速认领弹窗 -->
+<view class="overlay" wx:if="{{showQuickClaimDialog}}" bindtap="onQuickClaimCancel"></view>
+<view class="quick-claim-dialog" wx:if="{{showQuickClaimDialog}}">
+  <view class="dialog-header">
+    <text class="dialog-title">启用快速认领</text>
+    <view class="close-icon" bindtap="onQuickClaimCancel">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#666"></path>
+      </svg>
+    </view>
+  </view>
+  <view class="dialog-content">
+    <text class="dialog-desc">检测到您发布的可能是证件类物品，是否启用快速认领通道？启用后，系统将根据学号自动通知失主。</text>
+    <input class="dialog-input" placeholder="请输入证件上的学号" bindinput="onQuickClaimIdInput" value="{{tempQuickClaimStudentId}}" maxlength="20" />
+  </view>
+  <view class="dialog-footer">
+    <button class="btn-cancel" bindtap="onQuickClaimCancel">取消</button>
+    <button class="btn-confirm" bindtap="onQuickClaimConfirm">确认</button>
+  </view>
+</view>
+
+<!-- 敏感词审核失败弹窗 -->
+<view class="overlay" wx:if="{{showAuditFailDialog}}" bindtap="closeAuditFailDialog"></view>
+<view class="audit-fail-dialog" wx:if="{{showAuditFailDialog}}">
+  <view class="dialog-header">
+    <text class="dialog-title">审核不通过</text>
+    <view class="close-icon" bindtap="closeAuditFailDialog">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#666"></path>
+      </svg>
+    </view>
+  </view>
+  <view class="dialog-content">
+    <view class="fail-icon">
+      <svg viewBox="0 0 24 24" width="48" height="48">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#f56c6c"></path>
+      </svg>
+    </view>
+    <text class="dialog-desc fail-desc">{{auditFailReason}}</text>
+    <text class="dialog-tip">请修改标题/描述中的敏感内容后重新提交</text>
+  </view>
+  <view class="dialog-footer">
+    <button class="btn-confirm" bindtap="closeAuditFailDialog">我知道了</button>
+  </view>
+</view>

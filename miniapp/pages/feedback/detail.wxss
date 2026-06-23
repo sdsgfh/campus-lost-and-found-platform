@@ -1,0 +1,12 @@
+/* pages/feedback/detail.wxss */
+.detail-container { /* 类似之前 */ }
+.detail-card { padding: 32rpx; }
+.info-row { display: flex; margin-bottom: 24rpx; }
+.label { width: 160rpx; color: #999; }
+.value { flex: 1; color: #333; }
+.status.pending { color: #ff9800; }
+.status.replied { color: #2E7D32; }
+.reply { color: #07c160; }
+.reply-time { display: block; font-size: 24rpx; color: #999; margin-top: 8rpx; }
+.image-list { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.detail-img { width: 200rpx; height: 200rpx; border-radius: 16rpx; }

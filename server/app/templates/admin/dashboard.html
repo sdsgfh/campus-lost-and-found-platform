@@ -1,0 +1,99 @@
+{% extends "admin/layout.html" %}
+{% block title %}仪表盘{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">仪表盘</h1>
+</div>
+
+<!-- 今日新增卡片行 -->
+<div class="row row-cols-1 row-cols-md-4 g-4 mb-4">
+    <div class="col">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">今日新增用户</div>
+            <div class="card-body text-center">
+                <h5 class="card-title" id="newUsersToday">0</h5>
+                <p class="card-text">已认证：<span id="newVerifiedToday">0</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">今日新增发布</div>
+            <div class="card-body text-center">
+                <h5 class="card-title" id="newPostsToday">0</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">今日新增交易</div>
+            <div class="card-body text-center">
+                <h5 class="card-title" id="newTransactionsToday">0</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">今日待审核</div>
+            <div class="card-body text-center">
+                <h5 class="card-title">举报：<span id="pendingReports">0</span> | 申诉：<span id="pendingAppeals">0</span></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 累计数据卡片行 -->
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">累计用户</div>
+            <div class="card-body text-center">
+                <h5 class="card-title" id="totalUsers">0</h5>
+                <p>认证：<span id="totalVerified">0</span> | 封禁：<span id="totalBanned">0</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">累计发布</div>
+            <div class="card-body text-center">
+                <h5 class="card-title" id="totalPosts">0</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card dashboard-card h-100">
+            <div class="card-header">待处理举报/申诉</div>
+            <div class="card-body text-center">
+                <h5 class="card-title">举报 <span id="pendingReportsTotal">0</span> | 申诉 <span id="pendingAppealsTotal">0</span></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 趋势图表（保持不变） -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                趋势
+                <span class="float-end">
+                    <button class="btn btn-sm btn-outline-secondary range-btn" data-range="day">日</button>
+                    <button class="btn btn-sm btn-outline-secondary range-btn active" data-range="week">周</button>
+                    <button class="btn btn-sm btn-outline-secondary range-btn" data-range="month">月</button>
+                    <button class="btn btn-sm btn-outline-secondary range-btn" data-range="year">年</button>
+                </span>
+            </div>
+            <div class="card-body" style="height: 300px;">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script src="/static/admin/js/dashboard.js"></script>
+{% endblock %}

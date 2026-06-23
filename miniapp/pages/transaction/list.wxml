@@ -1,0 +1,74 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+<view class="list-container">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="nav-title">交易认领记录</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- 交易记录列表（直接展示，无Tab栏） -->
+  <scroll-view 
+    scroll-y 
+    class="list-scroll" 
+    bindscrolltolower="loadMore"
+    lower-threshold="50"
+  >
+    <view class="list">
+      <!-- 记录项 -->
+      <view 
+        class="record-item" 
+        wx:for="{{recordList}}" 
+        wx:key="id" 
+        bindtap="showDetailModal" 
+        data-item="{{item}}"
+      >
+        <view class="item-header">
+          <text class="item-title">{{item.title}}</text>
+          <text class="type {{item.type}}">{{item.typeText}}</text>
+        </view>
+        <view class="item-info">
+          <text class="other">对方：{{item.other_name}}</text>
+          <text class="time">{{item.completed_at}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 状态提示 -->
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!hasMore && recordList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{recordList.length === 0 && !loading}}">暂无交易记录</view>
+  </scroll-view>
+
+  <!-- 详情弹窗 -->
+  <view class="modal-overlay" wx:if="{{showDetail}}" bindtap="hideDetailModal"></view>
+  <view class="detail-modal" wx:if="{{showDetail}}">
+    <view class="modal-header">
+      <text class="modal-title">记录详情</text>
+      <view class="close-btn" bindtap="hideDetailModal">✕</view>
+    </view>
+    <scroll-view scroll-y class="modal-content">
+      <view class="detail-card">
+        <view class="detail-row">
+          <text class="label">物品标题：</text>
+          <text class="value">{{currentRecord.title}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="label">交易类型：</text>
+          <text class="value">{{currentRecord.typeText}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="label">交易对象：</text>
+          <text class="value">{{currentRecord.other_name}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="label">完成时间：</text>
+          <text class="value">{{currentRecord.completed_at}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

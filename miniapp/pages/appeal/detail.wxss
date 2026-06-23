@@ -1,0 +1,94 @@
+/* pages/report/detail.wxss */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+page {
+  background-color: rgba(238, 247, 242, 0.5);
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 96rpx;
+  padding: 0 24rpx;
+  background-color: white;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  color: #2E7D32;
+}
+.title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1e2e1e;
+}
+.right {
+  width: 60rpx;
+}
+
+.content-scroll {
+  height: calc(100vh - 96rpx);
+  padding: 24rpx;
+}
+.detail-card {
+  background: white;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+.info-row {
+  display: flex;
+  margin-bottom: 24rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+.label {
+  width: 160rpx;
+  color: #999;
+  flex-shrink: 0;
+}
+.value {
+  flex: 1;
+  color: #333;
+}
+.value.status {
+  font-weight: 500;
+}
+.value.status.pending {
+  color: #ff9800;
+}
+.value.status.approved {
+  color: #f56c6c;
+}
+.value.status.rejected {
+  color: #999;
+}
+.divider {
+  height: 2rpx;
+  background: #f0f0f0;
+  margin: 32rpx 0;
+}
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 16rpx;
+}
+.evidence-img {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 16rpx;
+}

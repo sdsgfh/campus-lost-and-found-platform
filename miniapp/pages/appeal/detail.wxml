@@ -1,0 +1,48 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <text class="icon">←</text>
+    </view>
+    <text class="title">申诉详情</text>
+    <view class="right"></view>
+  </view>
+
+  <scroll-view scroll-y class="content-scroll">
+    <view class="detail-card">
+      <view class="info-row">
+        <text class="label">申诉类型：</text>
+        <text class="value">{{appeal.appealTypeText}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">申诉时间：</text>
+        <text class="value">{{appeal.created_at}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">处理状态：</text>
+        <text class="value status {{appeal.status}}">{{appeal.statusText}}</text>
+      </view>
+      <view class="info-row" wx:if="{{appeal.result}}">
+        <text class="label">处理结果：</text>
+        <text class="value">{{appeal.result}}</text>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="info-row">
+        <text class="label">申诉理由：</text>
+        <text class="value">{{appeal.reason}}</text>
+      </view>
+
+      <view class="info-row" wx:if="{{appeal.evidence_images && appeal.evidence_images.length > 0}}">
+        <text class="label">证据图片：</text>
+        <view class="image-list">
+          <image wx:for="{{appeal.evidence_images}}" wx:key="index" src="{{item}}" mode="aspectFill" class="evidence-img" bindtap="previewImage" data-url="{{item}}"></image>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

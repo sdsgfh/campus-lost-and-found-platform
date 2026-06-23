@@ -1,0 +1,105 @@
+/* pages/setting/setting.wxss */
+page {
+  background-color: #e6f2e6dd;
+}
+
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.setting-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 自定义导航栏（核心优化） */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  padding: 90rpx 24rpx 4rpx;
+  background: #A5CFA9;
+  position: relative;
+}
+/* 返回按钮 */
+.back-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 纯样式实现的返回箭头（替代文字） */
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+}
+/* 导航标题 */
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+.nav-right {
+  width: 60rpx;
+}
+
+/* 菜单列表 */
+.menu-list {
+  padding: 70rpx 30rpx;
+}
+.menu-item {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 32rpx 30rpx 50rpx;
+  margin-bottom: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.03);
+  border: 1rpx solid #f0f0f0;
+}
+.item-text {
+  font-size: 32rpx;
+  color: #333333;
+}
+/* 统一的箭头样式 */
+.item-arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-right: 3rpx solid #207F4C;
+  border-top: 3rpx solid #207F4C;
+  transform: rotate(45deg);
+}
+/* 缓存大小文本 */
+.cache-size {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+/* 退出登录按钮 */
+.logout-btn {
+  margin: 60rpx 30rpx 30rpx;
+  background: #70a88a;
+  border-radius: 12rpx;
+  padding: 32rpx;
+  text-align: center;
+}
+.logout-text {
+  color: #f8f3f3;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+/* 点击态优化 */
+.menu-item:active, .logout-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+  transition: all 0.2s ease;
+}

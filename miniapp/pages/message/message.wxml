@@ -1,0 +1,138 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="message-container">
+  <!-- 首页同款自定义导航栏（移除编辑按钮） -->
+  <view class="nav-box">
+    <view class="nav-bar">
+      <view class="nav-title">消息中心</view>
+      <!-- 移除所有编辑按钮 -->
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- Tab切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'notification' ? 'active' : ''}}" bindtap="switchTab" data-tab="notification">通知</view>
+    <view class="tab-item {{activeTab === 'chat' ? 'active' : ''}}" bindtap="switchTab" data-tab="chat">私信</view>
+  </view>
+
+  <!-- 通知列表（移除checkbox、删除图标、编辑态相关） -->
+  <scroll-view wx:if="{{activeTab === 'notification'}}" scroll-y class="list-scroll" bindscrolltolower="loadMoreNotifications">
+    <view class="list">
+      <view class="notification-item" 
+        wx:for="{{notificationList}}" wx:key="id" 
+        data-id="{{item.id}}" bindtap="showNotificationDetail" data-item="{{item}}"
+        bindlongpress="onNotificationLongPress" data-item="{{item}}"> <!-- 新增长按事件 -->
+        <view class="notification-content">
+          <view class="item-header">
+            <text class="title">{{item.title}}</text>
+            <text class="time">{{item.created_at}}</text>
+          </view>
+          <text class="content">{{item.content}}</text>
+          <view class="footer">
+            <text class="read-status" wx:if="{{!item.is_read}}">未读</text>
+            <text class="read-status read" wx:else>已读</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!notifHasMore && notificationList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{notificationList.length === 0 && !loading}}">暂无通知</view>
+  </scroll-view>
+
+  <!-- 私信会话列表（保留原有逻辑） -->
+  <scroll-view wx:else scroll-y class="list-scroll" bindscrolltolower="loadMoreSessions">
+    <view class="list">
+      <view class="session-item {{editing ? 'editing' : ''}}" wx:for="{{sessionList}}" wx:key="session_id" 
+            data-session-id="{{item.session_id}}"
+            data-receiver-id="{{item.other_user.id}}"
+            data-other-status="{{item.other_user.status}}"
+            bindtap="goToChat" 
+            bindlongpress="onSessionLongPress" 
+            data-id="{{item.session_id}}">
+        <checkbox wx:if="{{editing}}" class="session-checkbox" 
+              data-id="{{item.session_id}}" 
+              catchtap="handleSessionCheckboxTap" 
+              model:checked="{{item.isChecked}}" />
+        <view class="session-content">
+          <view class="avatar">
+            <image src="{{item.other_user.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+            <view class="status-dot" wx:if="{{item.other_user.status === 'banned' || item.other_user.status === 'cancelled'}}"></view>
+          </view>
+          <view class="info">
+            <view class="top-row">
+              <text class="nickname">{{item.other_user.nickname}}</text>
+              <text class="time">{{item.last_message_time}}</text>
+            </view>
+            <view class="bottom-row">
+              <text class="last-msg line-clamp-1">{{item.last_message}}</text>
+              <text class="unread" wx:if="{{item.unread_count > 0}}">{{item.unread_count}}</text>
+            </view>
+          </view>
+          <view class="post-tag" wx:if="{{item.post_title}}" catchtap="stopPropagation" bindtap="goToPost" data-post-id="{{item.post_id}}">正在沟通：{{item.post_title}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!sessionHasMore && sessionList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{sessionList.length === 0 && !loading}}">暂无私信</view>
+  </scroll-view>
+  
+  <!-- 私信批量操作栏（保留） -->
+  <view class="batch-bar" wx:if="{{editing}}">
+    <checkbox value="all" checked="{{selectAll}}" bindtap="selectAllSessions">全选</checkbox>
+    <button class="delete-btn" bindtap="deleteSelectedSessions" disabled="{{selectedSessionIds.length === 0}}">删除({{selectedSessionIds.length}})</button>
+    <button class="cancel-btn" bindtap="toggleSessionEdit">取消</button>
+  </view>
+
+  <!-- 通知详情弹窗 -->
+  <view class="modal-mask" wx:if="{{showDetailModal}}" bindtap="hideDetailModal"></view>
+  <view class="modal-content" wx:if="{{showDetailModal}}" catchtap="stopPropagation">
+    <view class="modal-header">
+      <text class="modal-title">通知详情</text>
+      <view class="close-icon" bindtap="hideDetailModal">×</view>
+    </view>
+    <view class="modal-body">
+      <text class="detail-title">{{currentNotification.title}}</text>
+      <text class="detail-time">{{currentNotification.created_at}}</text>
+      <text class="detail-content">{{currentNotification.content}}</text>
+      
+      <!-- 证件招领详情按钮（增加 data 存在性判断） -->
+      <button 
+        wx:if="{{currentNotification.type === 'certificate_notify' && currentNotification.data && currentNotification.data.certificate_id}}" 
+        class="detail-btn" 
+        bindtap="goToCertificateDetail"
+      >
+        前往证件招领详情
+      </button>
+
+      <!-- 查看发布信息详情按钮（取消 type 限制，只要有 post_id 就显示） -->
+      <button 
+        wx:if="{{currentNotification.data && currentNotification.data.post_id}}" 
+        class="detail-btn" 
+        bindtap="goToPostDetail"
+      >
+        查看发布信息详情
+      </button>
+      <!-- 申诉按钮（新增 punishment 类型，适配你的实际通知类型） -->
+      <button 
+        class="appeal-btn" 
+        wx:if="{{
+          currentNotification.type == 'report_notify' ||
+          currentNotification.type == 'post_reported' ||
+          currentNotification.type == 'account_reported' ||
+          currentNotification.type == 'certificate_reported' ||
+          currentNotification.type == 'post_off' ||
+          currentNotification.type == 'credit_deduct' ||
+          currentNotification.type == 'claim_dispute' ||
+          currentNotification.type == 'punishment'  
+        }}"  
+        bindtap="goToAppeal"
+      >
+        前往申诉
+      </button>
+    </view>
+  </view>
+</view>

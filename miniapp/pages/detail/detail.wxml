@@ -1,0 +1,177 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="detail-container">
+  <!-- 顶部导航栏（自定义） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="nav-title">详情</text>
+    <view class="nav-right" bindtap="onShare">
+      <button open-type="share" class="share-btn">分享</button>
+    </view>
+  </view>
+
+  <!-- 内容不存在提示 -->
+  <view wx:if="{{!post}}" class="error-tip">
+    <text>该内容已不存在</text>
+    <button bindtap="goBackToList" class="back-btn">返回列表</button>
+  </view>
+
+  <!-- 正常内容 -->
+  <scroll-view wx:else scroll-y class="content-scroll">
+    <!-- 图片轮播 -->
+    <view class="swiper-area">
+      <swiper
+        class="swiper"
+        indicator-dots="{{post.images && post.images.length > 1}}"
+        indicator-color="rgba(255,255,255,0.5)"
+        indicator-active-color="#07c160"
+        autoplay="{{false}}"
+        circular
+      >
+        <swiper-item wx:for="{{post.images}}" wx:key="index">
+          <image src="{{item}}" mode="aspectFill" class="swiper-image" bindtap="previewImage" data-index="{{index}}"></image>
+        </swiper-item>
+        <!-- 无图占位 -->
+        <swiper-item wx:if="{{!post.images || post.images.length === 0}}">
+          <view class="no-image">暂无图片</view>
+        </swiper-item>
+      </swiper>
+      <!-- 保护期标签（仅招领且在保护期内） -->
+      <view wx:if="{{post.type === 'found' && post.inProtection}}" class="protection-tag">已认领待确认</view>
+    </view>
+
+    <!-- 核心信息 -->
+    <view class="info-card">
+      <view class="title-row">
+        <text class="title">{{post.title}}</text>
+        <text class="time">{{post.created_at}}</text>
+      </view>
+      <view class="desc">{{post.description}}</view>
+
+      <!-- 补充信息（根据类型展示） -->
+      <view class="extra-info">
+        <view wx:if="{{post.type === 'lost' || post.type === 'found'}}" class="info-item">
+          <text class="label">{{post.type === 'lost' ? '丢失地点' : '捡到地点'}}：</text>
+          <text class="value">{{post.location || '未知'}}</text>
+        </view>
+        <view wx:if="{{post.type === 'lost' || post.type === 'found'}}" class="info-item">
+          <text class="label">{{post.type === 'lost' ? '丢失时间' : '捡到时间'}}：</text>
+          <text class="value">{{post.lost_time || '未知'}}</text>
+        </view>
+        <view wx:if="{{post.type === 'sale'}}" class="info-item">
+          <text class="label">价格：</text>
+          <text class="value price">¥{{post.price}}</text>
+        </view>
+        <view wx:if="{{post.type === 'sale'}}" class="info-item">
+          <text class="label">新旧成色：</text>
+          <text class="value">{{post.conditionText}}</text>
+        </view>
+        <view wx:if="{{post.type === 'wanted'}}" class="info-item">
+          <text class="label">期望价格：</text>
+          <text class="value price">¥{{post.expected_price}}</text>
+        </view>
+        <view wx:if="{{post.type === 'wanted'}}" class="info-item">
+          <text class="label">期望成色：</text>
+          <text class="value">{{post.expectedConditionText}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">有效时限：</text>
+          <text class="value">{{post.expiry_days}}天</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 发布者信息 -->
+    <view class="user-card" bindtap="goToUserProfile" data-user-id="{{post.user.id}}">
+      <image class="avatar" src="{{post.user.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="user-info">
+        <text class="nickname">{{post.user.nickname}}</text>
+        <view class="credit-row">
+          <!-- 信誉等级（修复显示问题） -->
+          <view class="credit-level-wrap">
+            <image wx:if="{{post.user.creditLevel === '信誉优秀'}}" src="/images/优秀.png" class="credit-icon" mode="widthFix"></image>
+            <image wx:elif="{{post.user.creditLevel === '信誉良好'}}" src="/images/良好.png" class="credit-icon" mode="widthFix"></image>
+            <image wx:elif="{{post.user.creditLevel === '信誉一般'}}" src="/images/一般.png" class="credit-icon" mode="widthFix"></image>
+            <image wx:elif="{{post.user.creditLevel === '信誉较差'}}" src="/images/较差.png" class="credit-icon" mode="widthFix"></image>
+            <image wx:elif="{{post.user.creditLevel === '已封禁'}}" src="/images/已封禁.png" class="credit-icon" mode="widthFix"></image>
+            <text class="credit-level-text">{{post.user.creditLevel || '暂无等级'}}</text>
+          </view>
+          <!-- 荣誉称号 -->
+          <view class="honor" wx:if="{{post.user.honor}}">
+            <image wx:if="{{post.user.honor === '拾光者'}}" src="/images/拾光.png" class="honor-icon" mode="widthFix"></image>
+            <image wx:elif="{{post.user.honor === '暖心达人'}}" src="/images/暖心.png" class="honor-icon" mode="widthFix"></image>
+            <image wx:elif="{{post.user.honor === '校园雷锋'}}" src="/images/校园.png" class="honor-icon" mode="widthFix"></image>
+            <image wx:elif="{{post.user.honor === '公益之星'}}" src="/images/公益.png" class="honor-icon" mode="widthFix"></image>
+            <text class="honor-text">{{post.user.honor}}</text>
+          </view>
+        </view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </scroll-view>
+
+  <!-- 底部操作按钮（固定） -->
+  <view wx:if="{{post}}" class="action-bar">
+    <!-- 发布者本人 -->
+    <block wx:if="{{isOwner}}">
+      <!-- 进行中 -->
+      <block wx:if="{{post.status === 'active'}}">
+        <button class="action-btn" bindtap="offShelf">下架</button>
+        <button class="action-btn primary" bindtap="confirmComplete">确认完成</button>
+      </block>
+      <!-- 已完成 -->
+      <block wx:elif="{{post.status === 'completed'}}">
+        <button class="action-btn" bindtap="deletePost" wx:if="{{!(post.type === 'found' && post.inProtection)}}">删除</button>
+        <button class="action-btn disabled" wx:else disabled>保护期内无法删除</button>
+      </block>
+      <!-- 已过期 -->
+      <block wx:elif="{{post.status === 'expired'}}">
+        <button class="action-btn" bindtap="repost">重新发布</button>
+        <button class="action-btn" bindtap="deletePost">删除</button>
+      </block>
+      <!-- 已下架 -->
+      <block wx:elif="{{post.status === 'off'}}">
+        <button class="action-btn" bindtap="editPost">修改</button>
+        <button class="action-btn" bindtap="deletePost">删除</button>
+      </block>
+      <!-- 其他状态 -->
+      <block wx:else>
+        <text class="status-tip">当前状态：{{post.statusText}}</text>
+      </block>
+    </block>
+
+    <!-- 其他用户 -->
+    <block wx:else>
+      <!-- 未认证或已注销 -->
+      <block wx:if="{{userStatus === 'unverified' || userStatus === 'cancelled'}}">
+        <button class="action-btn primary full-width" bindtap="goToAuth">实名认证</button>
+      </block>
+      <!-- 已封禁 -->
+      <block wx:elif="{{userStatus === 'banned'}}">
+        <text class="status-tip">您的账号已被封禁，无法操作</text>
+      </block>
+      <!-- 已认证用户 -->
+      <block wx:else>
+        <!-- 收藏/举报按钮（统一小尺寸） -->
+        <button class="action-btn icon-btn" bindtap="favorite">
+          <image wx:if="{{isFavorited}}" src="/images/收藏2.png" class="action-icon" mode="widthFix"></image>
+          <image wx:else src="/images/收藏1.png" class="action-icon" mode="widthFix"></image>
+        </button>
+        <button class="action-btn icon-btn" bindtap="report">
+          <image src="/images/举报.png" class="action-icon" mode="widthFix"></image>
+        </button>
+        <!-- 联系发布者（主按钮） -->
+        <button class="action-btn primary text-btn" bindtap="contact">
+          <text>联系发布者</text>
+        </button>
+        <!-- 我才是失主（警告按钮，和联系按钮同尺寸） -->
+        <button wx:if="{{post.type === 'found' && post.inProtection}}" class="action-btn warn text-btn" bindtap="claimAsOwner">
+          <text>我才是失主</text>
+        </button>
+      </block>
+    </block>
+  </view>
+</view>

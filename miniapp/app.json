@@ -1,0 +1,85 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/home/home",
+    "pages/trade/trade",
+    "pages/lostfound/lostfound",
+    "pages/message/message",
+    "pages/chat/detail",
+    "pages/profile/profile",
+    "pages/profile/other",
+    "pages/auth/auth",
+    "pages/detail/detail",
+    "pages/report/detail",
+    "pages/appeal/detail",
+    "pages/report/create",
+    "pages/reports/reports",
+    "pages/appeal/create",
+    "pages/reward/reward",
+    "pages/post/post",
+    "pages/search/search",
+    "pages/myposts/myposts",
+    "pages/favorites/favorites",
+    "pages/announcement/list",
+    "pages/announcement/detail",
+    "pages/setting/setting",
+    "pages/setting/cancel-account",
+    "pages/feedback/feedback",
+    "pages/about/about",
+    "pages/credit/credit",
+    "pages/credit/rules",
+    "pages/feedback/history",
+    "pages/transaction/list",
+    "pages/transaction/qrcode",
+    "pages/transaction/select",
+    "pages/feedback/detail",
+    "pages/profile/edit",
+    "pages/scan/scan"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "校觅",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#eef7f2"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#207F4C",
+    "backgroundColor": "#bee1c2",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/tabbar/首页图标.png",
+        "selectedIconPath": "images/tabbar/主页1.png"
+      },
+      {
+        "pagePath": "pages/lostfound/lostfound",
+        "text": "失物招领",
+        "iconPath": "images/tabbar/失物招领图标.png",
+        "selectedIconPath": "images/tabbar/失物招领1.png"
+      },
+      {
+        "pagePath": "pages/trade/trade",
+        "text": "二手交易",
+        "iconPath": "images/tabbar/二手交易图标.png",
+        "selectedIconPath": "images/tabbar/二手交易1.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息中心",
+        "iconPath": "images/tabbar/消息.png",
+        "selectedIconPath": "images/tabbar/消息1.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "个人中心",
+        "iconPath": "images/tabbar/我的图标.png",
+        "selectedIconPath": "images/tabbar/我的1.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

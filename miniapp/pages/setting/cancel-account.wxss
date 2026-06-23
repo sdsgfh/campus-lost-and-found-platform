@@ -1,0 +1,145 @@
+/* pages/setting/cancel-account.wxss */
+page {
+  background-color: #e6f2e6dd;
+  font-size: 28rpx;
+  color: #333;
+  height: 100%;
+}
+
+/* 背景图 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+/* 主容器 */
+.cancel-container {
+  width: 100%;
+  min-height: 100vh;
+  backdrop-filter: blur(10rpx);
+}
+
+/* 自定义导航栏（统一样式） */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: calc(20rpx + var(--status-bar-height)); /* 适配状态栏 */
+  padding: 90rpx 24rpx 10rpx;
+  background: #A5CFA9;
+  backdrop-filter: blur(10rpx);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-icon {
+  width: 20rpx;
+  height: 30rpx;
+}
+
+/* 导航栏标题 */
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+
+.right {
+  width: 80rpx;
+}
+
+/* 表单滚动区域 */
+.form-scroll {
+  height: calc(100vh - var(--status-bar-height) - 80rpx);
+}
+
+/* 表单容器 */
+.form-container {
+  padding: 40rpx 30rpx;
+}
+
+/* 表单项 */
+.form-item {
+  margin-bottom: 40rpx;
+}
+
+/* 标签 */
+.label {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 16rpx;
+  display: block;
+  font-weight: 500;
+}
+
+/* 输入框 */
+.input {
+  width: 100%;
+  height: 88rpx;
+  background: #f7f8f7;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #e0e8e0;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  border-color: #2E7D32; /* 聚焦高亮 */
+}
+
+/* 警告提示框 */
+.warning-box {
+  background: #fff3e0;
+  border-left: 8rpx solid #ff9800;
+  padding: 24rpx;
+  margin: 40rpx 0;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.8;
+  border-radius: 16rpx; /* 增加圆角 */
+  box-shadow: 0 2rpx 8rpx rgba(255, 152, 0, 0.1);
+}
+
+/* 注销按钮 */
+.cancel-btn {
+  width: 100%;
+  height: 96rpx;
+  line-height: 76rpx;
+  background:#6ea771cd;
+  color: #fff;
+  border-radius: 48rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4rpx 15rpx rgba(46, 125, 50, 0.3);
+  transition: all 0.2s ease;
+}
+
+.cancel-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 8rpx rgba(245, 108, 108, 0.2);
+}
+
+.cancel-btn[disabled] {
+  background: #ccc;
+  box-shadow: none;
+  transform: none;
+}

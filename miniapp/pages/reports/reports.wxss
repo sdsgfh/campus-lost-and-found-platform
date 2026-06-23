@@ -1,0 +1,287 @@
+/* pages/reports/reports.wxss */
+page {
+  background-color: #e6f2e6dd;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* 隐藏原生导航栏，适配自定义导航 */
+  padding-top: 0 !important;
+}
+
+/* 背景图 */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.reports-container {
+  width: 100%;
+  min-height: 100vh;
+  border-radius: 0;
+  /* 给固定元素留出空间 */
+  padding-top: 230rpx;
+}
+
+/* 自定义导航栏 - 核心优化：固定定位 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90rpx;
+  padding: 85rpx 30rpx 0rpx;
+  background: #A5CFA9;
+  position: fixed; /* 固定导航栏 */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99; /* 确保在最上层 */
+}
+/* 返回按钮 - 使用自定义图标 */
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-img {
+  width: 20rpx;
+  height: 30rpx;
+  object-fit: contain;
+}
+/* 导航标题 */
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+.right {
+  width: 60rpx;
+}
+
+/* Tab切换栏 - 优化样式：固定定位 */
+.tab-bar {
+  display: flex;
+  height: 70rpx;
+  background: #A5CFA9;
+  position: fixed; /* 固定Tab栏 */
+  top: 170rpx; /* 导航栏高度(90rpx) + 导航栏padding-top(85rpx) */
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+.tab-item {
+  flex: 1;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #666666;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.tab-item.active {
+  color: #2E7D32;
+  font-weight: 600;
+}
+/* 选中态下划线 - 优化样式 */
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 6rpx;
+  background: #2E7D32;
+  border-radius: 3rpx;
+}
+
+/* 排序栏 - 优化样式：固定定位 */
+.sort-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10rpx 30rpx;
+  position: fixed; /* 固定排序栏 */
+  top: 240rpx; /* Tab栏top(175rpx) + Tab栏height(70rpx) */
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: #e6f2e6dd; /* 继承页面背景色，避免透明 */
+}
+.sort-item {
+  font-size: 28rpx;
+  color: #999999;
+  margin-left: 40rpx;
+  padding: 8rpx 12rpx;
+  border-radius: 16rpx;
+  transition: all 0.2s ease;
+}
+.sort-item.active {
+  color: #2E7D32;
+  font-weight: 600;
+  background: #E8F5E8;
+}
+
+/* 列表滚动区域 - 适配高度（关键：减去固定元素总高度） */
+.list-scroll {
+  height: calc(100vh - 230rpx); /* 总高度 - 固定元素总高度(230rpx) */
+  padding-bottom: 20rpx;
+}
+.list {
+  padding: 100rpx 30rpx;
+}
+
+/* 记录项 - 美化样式 */
+.record-item {
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+/* 点击反馈 */
+.record-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 10rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+.target {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.time {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.type {
+  font-size: 28rpx;
+  color: #666666;
+}
+/* 状态标签 - 优化样式 */
+.status {
+  font-size: 26rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+.status.pending {
+  background: #FFF8E1;
+  color: #FF9800;
+}
+.status.approved {
+  background: #FFEBEE;
+  color: #E53935;
+}
+.status.rejected {
+  background: #F5F5F5;
+  color: #757575;
+}
+
+/* 状态提示文本 - 优化 */
+.loading-more, .no-more, .empty {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 28rpx;
+  color: #999999;
+}
+.empty {
+  padding: 100rpx 0;
+  font-size: 30rpx;
+}
+/* ============= 弹窗通用样式 ============= */
+.modal-mask {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+.modal-content {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 82%;
+  background: #fff;
+  border-radius: 24rpx;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+.modal-header {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.close-icon {
+  font-size: 40rpx;
+  color: #999;
+  line-height: 1;
+}
+.modal-body {
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.row {
+  margin-bottom: 20rpx;
+  line-height: 1.6;
+}
+.label {
+  font-weight: 500;
+  color: #666;
+  margin-right: 10rpx;
+}
+.content-box {
+  background: #f7f7f7;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  margin: 10rpx 0 20rpx;
+  white-space: pre-wrap;
+}
+.img-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 10rpx;
+}
+.evidence-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+}
+.status-text {
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+.status-text.pending {background: #fff7e6; color: #ff9800;}
+.status-text.approved {background: #e6f4e8; color: #2e7d32;}
+.status-text.rejected {background: #fee; color: #f44336;}

@@ -1,0 +1,320 @@
+/* pages/myposts/myposts.wxss */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+page {
+  background-color: #E6F2E6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding-top: 0 !important;
+  /* 新增：页面整体禁止滚动，所有滚动仅在列表区域 */
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* 容器布局 - 新增：整体垂直布局，固定头部，滚动列表 */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+/* 自定义导航栏 - 核心优化：固定在顶部 */
+.nav-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90rpx;
+  background: #A5CFA9;
+  /* 核心：粘性定位，固定在顶部 */
+  position: sticky;
+  padding: 130rpx 24rpx 50rpx;
+  z-index: 90;
+  /* 防止内容溢出 */
+  box-sizing: border-box;
+}
+/* 返回按钮 - 自定义图标 */
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-img {
+  width: 20rpx;
+  height: 30rpx;
+  object-fit: contain;
+}
+/* 导航标题 */
+.nav-bar .title { /* 增加类名前缀，避免冲突 */
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+.right {
+  width: 60rpx;
+}
+
+/* 状态分类Tab - 优化样式：固定在导航栏下方 */
+.status-tabs {
+  white-space: nowrap;
+  background: #A5CFA9;
+  padding: 10rpx 3rpx;
+  border-bottom: 1rpx solid #E8F5E8;
+  /* 核心：粘性定位，紧跟导航栏 */
+  position: sticky;
+  top: 100rpx; /* 导航栏高度，精准衔接 */
+  z-index: 80;
+  box-sizing: border-box;
+}
+.tab-item {
+  display: inline-block;
+  padding: 12rpx 28rpx;
+  margin-right: 20rpx;
+  font-size: 28rpx;
+  color: #666666;
+  border-radius: 32rpx;
+  background: #F5F5F5;
+  transition: all 0.2s ease;
+}
+.tab-item.active {
+  background: #75ab77;
+  color: white;
+  box-shadow: 0 2rpx 8rpx rgba(46, 125, 50, 0.2);
+}
+
+/* 筛选行 - 排序改为Tab标签：固定在状态Tab下方 */
+.filter-row {
+  display: flex;
+  background: #ffffffde;
+  border-bottom: 1rpx solid #F5F5F5;
+  /* 核心：粘性定位，紧跟状态Tab */
+  position: sticky;
+  top: 160rpx; /* 导航栏(100rpx) + 状态Tab(68rpx)，精准衔接 */
+  z-index: 70;
+  box-sizing: border-box;
+}
+/* 排序Tab */
+.sort-tabs {
+  flex: 1;
+  display: flex;
+}
+.sort-tab {
+  flex: 1;
+  text-align: center;
+  height: 75rpx;
+  line-height: 75rpx;
+  font-size: 28rpx;
+  color: #666666;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.sort-tab.active {
+  color: #2E7D32;
+  font-weight: 600;
+}
+.sort-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  background: #2E7D32;
+  border-radius: 3rpx;
+}
+/* 类型筛选 */
+.type-filter {
+  width: 180rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #333333;
+}
+.arrow {
+  font-size: 24rpx;
+  margin-left: 8rpx;
+  color: #999999;
+}
+
+/* 列表区域 - 适配高度：仅列表滚动，头部固定 */
+.list-scroll {
+  /* 核心：计算剩余高度 = 屏幕高度 - 导航栏(100rpx) - 状态Tab(68rpx) - 筛选行(88rpx) */
+  height: calc(100vh - 256rpx);
+  padding-bottom: 20rpx;
+  /* 仅列表区域滚动 */
+  overflow-y: auto;
+  /* 提升滚动体验 */
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+}
+.list {
+  padding: 20rpx 30rpx;
+}
+
+/* 卡片样式 - 美化 */
+.card {
+  background: #FFFFFF;
+  border-radius: 28rpx;
+  margin-bottom: 24rpx;
+  display: flex;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+/* 点击反馈 */
+.card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+}
+/* 卡片图片 */
+.card-img {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  background: #F5F5F5;
+  margin-right: 24rpx;
+}
+.card-img image {
+  width: 100%;
+  height: 100%;
+}
+/* 卡片信息 */
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+.card-info .title { /* 增加类名前缀，避免冲突 */
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.type-tag {
+  font-size: 24rpx;
+  color: #2E7D32;
+  background: #E8F5E8;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}
+.time-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.time {
+  font-size: 26rpx;
+  color: #999999;
+}
+/* 状态标签 - 优化样式 */
+.status {
+  font-size: 24rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+}
+.status.active {
+  background: #E3F2E3;
+  color: #2E7D32;
+}
+.status.completed {
+  background: #F5F5F5;
+  color: #757575;
+}
+.status.expired {
+  background: #FFF8E1;
+  color: #FF8C00;
+}
+.status.off {
+  background: #FFEBEE;
+  color: #F44336;
+}
+.status.pending {
+  background: #E3F2FD;
+  color: #2196F3;
+}
+.status.rejected {
+  background: #FFCDD2;
+  color: #D32F2F;
+}
+.status.pending_confirm {
+  background: #E8EAF6;
+  color: #3F51B5;
+}
+
+/* 状态提示文本 */
+.loading-more, .no-more, .empty {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 28rpx;
+  color: #999999;
+}
+.empty {
+  padding: 100rpx 0;
+  font-size: 30rpx;
+}
+
+/* 类型选择弹窗 - 优化 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 100;
+  backdrop-filter: blur(4rpx);
+}
+.type-picker {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 30rpx;
+  z-index: 101;
+  box-shadow: 0 -2rpx 15rpx rgba(0,0,0,0.05);
+}
+.picker-item {
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333333;
+  border-bottom: 1rpx solid #F5F5F5;
+  transition: all 0.2s ease;
+}
+.picker-item:last-child {
+  border-bottom: none;
+}
+.picker-item.selected {
+  color: #2E7D32;
+  font-weight: 600;
+}
+.picker-item:active {
+  background: #E8F5E8;
+}

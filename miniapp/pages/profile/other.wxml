@@ -1,0 +1,50 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="profile-container">
+  <!-- 自定义导航栏（参考detail页面） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image src="/images/返回.png" class="back-icon" mode="widthFix"></image>
+    </view>
+    <text class="nav-title">个人主页</text>
+    <view class="nav-right"></view>
+  </view>
+
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+    <view class="info">
+      <text class="nickname">{{userInfo.nickname}}</text>
+      <view class="credit-row">
+        <!-- 信誉等级（带图标，参考detail页面） -->
+        <view class="credit-level-wrap">
+          <image wx:if="{{userInfo.creditLevel === '信誉优秀'}}" src="/images/优秀.png" class="credit-icon" mode="widthFix"></image>
+          <image wx:elif="{{userInfo.creditLevel === '信誉良好'}}" src="/images/良好.png" class="credit-icon" mode="widthFix"></image>
+          <image wx:elif="{{userInfo.creditLevel === '信誉一般'}}" src="/images/一般.png" class="credit-icon" mode="widthFix"></image>
+          <image wx:elif="{{userInfo.creditLevel === '信誉较差'}}" src="/images/较差.png" class="credit-icon" mode="widthFix"></image>
+          <image wx:elif="{{userInfo.creditLevel === '已封禁'}}" src="/images/已封禁.png" class="credit-icon" mode="widthFix"></image>
+          <text class="credit-level-text">{{userInfo.creditLevel || '暂无等级'}}</text>
+        </view>
+        <!-- 荣誉称号（带图标，参考detail页面） -->
+        <view class="honor" wx:if="{{userInfo.honor}}">
+          <image wx:if="{{userInfo.honor === '拾光者'}}" src="/images/拾光.png" class="honor-icon" mode="widthFix"></image>
+          <image wx:elif="{{userInfo.honor === '暖心达人'}}" src="/images/暖心.png" class="honor-icon" mode="widthFix"></image>
+          <image wx:elif="{{userInfo.honor === '校园雷锋'}}" src="/images/校园.png" class="honor-icon" mode="widthFix"></image>
+          <image wx:elif="{{userInfo.honor === '公益之星'}}" src="/images/公益.png" class="honor-icon" mode="widthFix"></image>
+          <text class="honor-text">{{userInfo.honor}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 信誉信息 -->
+  <view class="section">
+    <text class="section-title">信誉信息</text>
+    <view class="info-item">
+      <text class="label">信誉分：</text>
+      <text class="value">{{userInfo.credit_score}}</text>
+    </view>
+  </view>
+  <button class="report-btn" bindtap="reportUser">举报</button>
+</view>

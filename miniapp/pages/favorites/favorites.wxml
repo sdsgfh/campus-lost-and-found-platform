@@ -1,0 +1,64 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+
+<view class="page">
+  <!-- 自定义导航（固定） -->
+  <view class="nav-bar">
+    <view class="back" bindtap="goBack">
+      <image class="back-img" src="/images/返回.png" mode="widthFix"></image>
+    </view>
+    <text class="nav-title">我的收藏</text>
+    <view class="right"></view>
+  </view>
+
+  <!-- 搜索框和筛选（固定） -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <image class="search-icon" src="/images/首页-搜索.png" mode="widthFix"></image>
+      <input class="search-input" placeholder="搜索收藏标题" bindinput="onSearchInput" value="{{keyword}}" confirm-type="search" bindconfirm="doSearch" />
+    </view>
+    <view class="filter-btn" bindtap="showFilter">
+      <text>{{currentTypeText}}</text>
+      <text class="arrow">▼</text>
+    </view>
+  </view>
+
+  <!-- 列表（仅列表滚动） -->
+  <scroll-view scroll-y class="list-scroll" bindscrolltolower="loadMore">
+    <view class="list">
+      <!-- 卡片：核心修复：移除 catchtap，仅保留 bindtap -->
+      <view class="card" wx:for="{{favoriteList}}" wx:key="favorite_id">
+        <!-- 卡片主体（跳转详情） -->
+        <view class="card-body" bindtap="goToDetail" data-post-id="{{item.post_id}}">
+          <view class="card-img">
+            <image src="{{item.first_image || '/images/default.png'}}" mode="aspectFill"></image>
+          </view>
+          <view class="card-info">
+            <view class="title-row">
+              <text class="title">{{item.title}}</text>
+              <text class="type-tag">{{item.type_text}}</text>
+            </view>
+            <view class="time">{{item.created_at}}</view>
+          </view>
+        </view>
+        <!-- 收藏图标：仅保留 bindtap，删除 catchtap（catchtap 本身会阻止冒泡，无需绑定方法） -->
+        <view class="favorite-icon" data-id="{{item.favorite_id}}" bindtap="removeSingle">
+          <image src="/images/收藏2.png" mode="widthFix"></image>
+        </view>
+      </view>
+    </view>
+    <view class="loading-more" wx:if="{{loadingMore}}">加载中...</view>
+    <view class="no-more" wx:if="{{!hasMore && favoriteList.length > 0}}">没有更多了</view>
+    <view class="empty" wx:if="{{favoriteList.length === 0 && !loading}}">暂无收藏</view>
+  </scroll-view>
+
+  <!-- 类型筛选弹窗 -->
+  <view class="overlay" wx:if="{{showFilter}}" bindtap="hideFilter"></view>
+  <view class="filter-panel" wx:if="{{showFilter}}">
+    <view class="filter-item {{currentType === '' ? 'selected' : ''}}" bindtap="selectType" data-type="">全部</view>
+    <view class="filter-item {{currentType === 'lost' ? 'selected' : ''}}" bindtap="selectType" data-type="lost">寻物</view>
+    <view class="filter-item {{currentType === 'found' ? 'selected' : ''}}" bindtap="selectType" data-type="found">招领</view>
+    <view class="filter-item {{currentType === 'sale' ? 'selected' : ''}}" bindtap="selectType" data-type="sale">出售</view>
+    <view class="filter-item {{currentType === 'wanted' ? 'selected' : ''}}" bindtap="selectType" data-type="wanted">求购</view>
+  </view>
+</view>

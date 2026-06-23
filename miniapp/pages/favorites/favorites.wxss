@@ -1,0 +1,251 @@
+/* pages/favorites/favorites.wxss */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+page {
+  background-color: #E6F2E6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden; /* 禁止页面整体滚动 */
+  height: 100vh;
+}
+
+/* 导航栏 - 固定顶部 + 美化 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60rpx;
+  padding: 90rpx 24rpx 4rpx;
+  background: #A5CFA9;
+  /* 固定导航栏 */
+  position: sticky;
+}
+.back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-img {
+  width: 20rpx;
+  height: 30rpx;
+}
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #207F4C;
+}
+.right {
+  width: 60rpx;
+}
+
+/* 搜索栏 - 固定导航栏下方 + 美化 */
+.search-bar {
+  display: flex;
+  padding: 16rpx 24rpx;
+  background: #A5CFA9;
+  /* 固定搜索栏 */
+  position: sticky;
+  top: 96rpx; /* 导航栏高度，精准衔接 */
+  z-index: 80;
+  box-sizing: border-box;
+}
+/* 搜索框带图标 */
+.search-input-wrap {
+  flex: 1;
+  height: 72rpx;
+  background: #F5F5F5;
+  border-radius: 36rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  margin-right: 24rpx;
+  display: flex;
+  align-items: center;
+}
+.search-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 12rpx;
+}
+.search-input {
+  flex: 1;
+  height: 100%;
+  font-size: 28rpx;
+  color: #333;
+}
+.search-input::placeholder {
+  color: #999;
+  font-size: 26rpx;
+}
+.filter-btn {
+  width: 140rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  background: #F5F5F5;
+  border-radius: 36rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrow {
+  font-size: 24rpx;
+  margin-left: 8rpx;
+  color: #999;
+}
+
+/* 列表区域 - 仅列表滚动 */
+.list-scroll {
+  height: calc(100vh - 144rpx); /* 屏幕高度 - 导航栏(96rpx) - 搜索栏(48rpx) */
+  -webkit-overflow-scrolling: touch; /* 顺滑滚动 */
+}
+.list {
+  padding: 24rpx;
+}
+/* 卡片美化 */
+.card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  margin-bottom: 24rpx;
+  display: flex;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.05);
+  position: relative;
+  transition: all 0.2s ease;
+}
+.card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+}
+/* 卡片主体（跳转详情） */
+.card-body {
+  display: flex;
+  width: 100%;
+}
+.card-img {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  background: #F5F5F5;
+  margin-right: 24rpx;
+}
+.card-img image {
+  width: 100%;
+  height: 100%;
+}
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+.title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.type-tag {
+  font-size: 24rpx;
+  color: #2E7D32;
+  background: #E8F5E8;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}
+.time {
+  font-size: 26rpx;
+  color: #999;
+}
+/* 收藏图标 - 美化（单独取消收藏） */
+.favorite-icon {
+  position: absolute;
+  right: 24rpx;
+  top: 80%;
+  transform: translateY(-50%);
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* 确保在最上层 */
+}
+.favorite-icon image {
+  width: 48rpx;
+  height: 48rpx;
+}
+.favorite-icon:active {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* 状态提示文本 */
+.loading-more, .no-more, .empty {
+  text-align: center;
+  padding: 40rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+.empty {
+  padding: 100rpx 0;
+  font-size: 30rpx;
+}
+
+/* 筛选弹窗美化 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 100;
+  backdrop-filter: blur(4rpx);
+}
+.filter-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 30rpx;
+  z-index: 101;
+  box-shadow: 0 -2rpx 15rpx rgba(0,0,0,0.05);
+}
+.filter-item {
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #333;
+  border-bottom: 1rpx solid #F5F5F5;
+  transition: all 0.2s ease;
+}
+.filter-item:last-child {
+  border-bottom: none;
+}
+.filter-item.selected {
+  color: #2E7D32;
+  font-weight: 600;
+}
+.filter-item:active {
+  background: #E8F5E8;
+}

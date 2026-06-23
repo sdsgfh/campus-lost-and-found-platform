@@ -1,0 +1,158 @@
+<!-- 背景图 -->
+<image class="page-bg" src="/images/波浪.png"></image>
+<!-- 自定义导航栏 + 固定搜索栏 -->
+<view class="custom-nav-bar">
+  <!-- 适配状态栏高度 -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+  <!-- 导航栏主体 -->
+  <view class="nav-content" style="height: 44px;">
+    <text class="nav-title">校觅</text>
+  </view>
+  <!-- 固定搜索栏 -->
+  <view class="search-bar px-4 py-2">
+    <view class="search-box flex items-center" bindtap="goToSearch">
+      <image class="search-icon-img" src="/images/首页-搜索.png" mode="aspectFit"></image>
+      <text class="search-placeholder">搜索物品、失物...</text>
+    </view>
+    <view class="scan-icon" bindtap="scanToConfirm">
+      <image class="scan-icon-img" src="/images/扫一扫.png" mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+
+<!-- 内容滚动容器（避开固定搜索栏） -->
+<view class="app-container" bindscrolltolower="onScrollToLower">
+  <!-- 轮播图区域 -->
+  <view class="swiper-area px-4 mt-4">
+    <swiper 
+      class="swiper" 
+      indicator-dots="{{banners.length>1}}" 
+      indicator-color="rgba(255,255,255,0.5)" 
+      indicator-active-color="#2E7D32"
+      autoplay 
+      circular
+      bindchange="onSwipeChange"
+    >
+      <block wx:for="{{banners}}" wx:key="id">
+        <swiper-item>
+          <view class="swiper-item" bindtap="onBannerTap" data-item="{{item}}">
+            <image src="{{item.image_url}}" mode="aspectFill" class="swiper-image"></image>
+            <view wx:if="{{item.title}}" class="swiper-title">{{item.title}}</view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <!-- 公告栏 -->
+  <view class="notice-area px-4 mt-4">
+    <view class="section-header flex justify-between items-center">
+      <view class="header-left flex items-center">
+        <image class="header-icon-img" src="/images/公告.png" mode="aspectFit"></image>
+        <text class="header-title">平台公告</text>
+      </view>
+      <view class="header-right" bindtap="goToAnnouncementList">
+        <text class="more-text">更多</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+    <view class="notice-list">
+      <view wx:if="{{notices.length === 0}}" class="empty-tip">暂无公告</view>
+      <block wx:for="{{notices}}" wx:key="id">
+        <view class="notice-item" bindtap="goToAnnouncementDetail" data-id="{{item.id}}">
+          <text class="notice-content line-clamp-1">{{item.title}}</text>
+          <text class="notice-time">{{item.publish_time}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 失物招领精选 -->
+  <view class="section px-4 mt-4">
+    <view class="section-header flex justify-between items-center">
+      <view class="header-left flex items-center">
+        <image class="header-icon-img" src="/images/失物精选.png" mode="aspectFit"></image>
+        <text class="header-title">失物招领精选</text>
+      </view>
+      <view class="tab-switch">
+        <text class="tab-item {{lostTab === 'lost' ? 'active' : ''}}" bindtap="switchLostTab" data-tab="lost">寻物</text>
+        <text class="tab-item {{lostTab === 'found' ? 'active' : ''}}" bindtap="switchLostTab" data-tab="found">招领</text>
+      </view>
+      <view class="header-right" bindtap="goToLostFound" data-tab="{{lostTab}}">
+        <text class="more-text">更多</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+    <scroll-view scroll-x class="scroll-view" show-scrollbar="{{false}}" enhanced>
+      <view class="scroll-content flex gap-3">
+        <view wx:if="{{lostList.length === 0}}" class="empty-scroll-item">暂无内容</view>
+        <block wx:for="{{lostList}}" wx:key="id">
+          <view class="scroll-item" bindtap="goToPostDetail" data-id="{{item.id}}">
+            <image src="{{item.images && item.images[0] || '/images/default.png'}}" mode="aspectFill" class="item-image"></image>
+            <view wx:if="{{item.is_protected}}" class="protected-tag">保护期</view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 二手交易精选 -->
+  <view class="section px-4 mt-4">
+    <view class="section-header flex justify-between items-center">
+      <view class="header-left flex items-center">
+        <image class="header-icon-img" src="/images/二手精选.png" mode="aspectFit"></image>
+        <text class="header-title">二手交易精选</text>
+      </view>
+      <view class="tab-switch">
+        <text class="tab-item {{tradeTab === 'sale' ? 'active' : ''}}" bindtap="switchTradeTab" data-tab="sale">出售</text>
+        <text class="tab-item {{tradeTab === 'wanted' ? 'active' : ''}}" bindtap="switchTradeTab" data-tab="wanted">求购</text>
+      </view>
+      <view class="header-right" bindtap="goToTrade" data-tab="{{tradeTab}}">
+        <text class="more-text">更多</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+    <scroll-view scroll-x class="scroll-view" show-scrollbar="{{false}}" enhanced>
+      <view class="scroll-content flex gap-3">
+        <view wx:if="{{tradeList.length === 0}}" class="empty-scroll-item">暂无内容</view>
+        <block wx:for="{{tradeList}}" wx:key="id">
+          <view class="scroll-item" bindtap="goToPostDetail" data-id="{{item.id}}">
+            <image src="{{item.images && item.images[0] || '/images/default.png'}}" mode="aspectFill" class="item-image"></image>
+            <view class="item-info">
+              <text class="item-title line-clamp-1">{{item.title}}</text>
+              <text class="item-price">{{item.price ? '¥' + item.price : ''}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 为您推荐 -->
+  <view class="section px-4 mt-4 mb-24">
+    <view class="section-header flex justify-between items-center">
+      <view class="header-left flex items-center">
+        <image class="header-icon-img" src="/images/推荐.png" mode="aspectFit"></image>
+        <text class="header-title">为您推荐</text>
+      </view>
+    </view>
+    <view wx:if="{{recommendList.length === 0 && !recommendLoading}}" class="empty-tip center">暂无推荐内容，快去发布吧</view>
+    <view class="recommend-grid">
+      <block wx:for="{{recommendList}}" wx:key="id">
+        <view class="recommend-card" bindtap="goToPostDetail" data-id="{{item.id}}">
+          <image src="{{item.images && item.images[0] || '/images/default.png'}}" mode="aspectFill" class="card-image"></image>
+          <view class="card-content">
+            <text class="card-title line-clamp-1">{{item.title}}</text>
+            <text class="card-price">{{item.price ? '¥' + item.price : ''}}</text>
+            <text class="card-time" wx:if="{{item.time}}">{{item.time}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view wx:if="{{recommendLoading}}" class="loading-more">加载中...</view>
+    <view wx:elif="{{!recommendHasMore && recommendList.length > 0}}" class="no-more">没有更多了</view>
+  </view>
+
+  <!-- 底部导航占位 -->
+  <view class="tabbar-placeholder"></view>
+</view>

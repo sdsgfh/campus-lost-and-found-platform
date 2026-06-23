@@ -1,0 +1,62 @@
+{% extends "admin/layout.html" %}
+{% block title %}交易记录{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">交易记录</h1>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="searchInput" placeholder="搜索发布者/接收者ID">
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary" id="searchBtn">搜索</button>
+    </div>
+    <div class="col-md-2">
+        <select class="form-select" id="typeFilter">
+            <option value="">全部类型</option>
+            <option value="claim">认领</option>
+            <option value="return">归还</option>
+            <option value="purchase">购买</option>
+            <option value="sale">出售</option>
+        </select>
+    </div>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>帖子ID</th>
+            <th>类型</th>
+            <th>发布者ID</th>
+            <th>接收者ID</th>
+            <th>完成时间</th>
+            <th>保护期结束</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="transactionTableBody"></tbody>
+</table>
+<div id="pagination" class="pagination"></div>
+
+<!-- 交易详情模态框 -->
+<div class="modal fade" id="transactionDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">交易详情</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="transactionDetailBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/admin/js/transactions.js"></script>
+{% endblock %}

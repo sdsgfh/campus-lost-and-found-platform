@@ -1,0 +1,124 @@
+{% extends "admin/layout.html" %}
+{% block title %}用户管理{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">用户管理</h1>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-3">
+        <input type="text" class="form-control" id="searchInput" placeholder="搜索ID/学号/昵称/姓名">
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-primary" onclick="loadUsers(1)">搜索</button>
+    </div>
+    <div class="col-md-2">
+        <select class="form-select" id="statusFilter">
+            <option value="">全部状态</option>
+            <option value="unverified">未认证</option>
+            <option value="verified">已认证</option>
+            <option value="cancelled">已注销</option>
+            <option value="banned">已封禁</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-info" onclick="showCreditModal()">信誉分筛选</button>
+    </div>
+    <div class="col-md-2 text-end">
+        <select class="form-select" id="sortSelect">
+            <option value="desc">按注册时间降序</option>
+            <option value="asc">按注册时间升序</option>
+        </select>
+    </div>
+</div>
+<!-- 隐藏的信誉分输入框（用于传递值） -->
+<input type="hidden" id="creditMin" value="">
+<input type="hidden" id="creditMax" value="">
+
+<!-- 信誉分筛选模态框 -->
+<div class="modal fade" id="creditModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">信誉分区间</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label>最小值</label>
+                    <input type="number" class="form-control" id="creditMinInput">
+                </div>
+                <div class="mb-3">
+                    <label>最大值</label>
+                    <input type="number" class="form-control" id="creditMaxInput">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="applyCreditFilter()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 用户详情模态框 -->
+<div class="modal fade" id="userDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">用户详情</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="userDetailBody">
+                <!-- 动态填充 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>昵称</th>
+            <th>姓名</th>
+            <th>学号/工号</th>
+            <th>状态</th>
+            <th>信誉分</th>
+            <th>注册时间</th>
+            <th>最后登录</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody id="userTableBody"></tbody>
+</table>
+<div id="pagination" class="pagination"></div>
+
+<!-- 封禁弹窗 -->
+<div class="modal fade" id="banModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">封禁用户</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="banUserId">
+                <div class="mb-3">
+                    <label class="form-label">封禁原因</label>
+                    <textarea class="form-control" id="banReason" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" onclick="banUser()">确认封禁</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/admin/js/users.js"></script>
+{% endblock %}
