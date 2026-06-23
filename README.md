@@ -203,7 +203,7 @@ campus-platform/
 │   ├── uploads/                # 用户头像等上传文件
 │   ├── chat_uploads/           # 聊天图片
 │   ├── run.py                  # 启动文件
-│   ├── requirements.txt        # Python 依赖
+│   ├── xiaomi_db.sql        # 数据库建表脚本
 │   └── .env                    # 环境变量
 ├── miniapp/                    # 微信小程序代码
 │   ├── pages/
@@ -212,11 +212,9 @@ campus-platform/
 │   ├── app.json
 │   └── project.config.json
 ├── README.md
-├── .gitignore
-└── database.sql                # 数据库建表脚本
+└── .gitignore
 ```
 
 ## 📜 License
 
 本项目仅供学习交流使用，未经授权不得用于商业用途。
-```
