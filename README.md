@@ -110,26 +110,13 @@
 
 ---
 
-## 📱 界面截图
+## 📱 界面演示
 
-> 建议插入小程序和后台管理界面的核心页面截图。
+> 点击下方链接观看系统完整功能演示视频（约12分钟）。
 
-| 用户端 | 管理端 |
-|--------|--------|
-| ![首页](screenshots/home.png) | ![仪表盘](screenshots/admin-dashboard.png) |
-| ![发布](screenshots/publish.png) | ![举报审核](screenshots/report-audit.png) |
-| ![交易二维码](screenshots/qrcode.png) | ![数据统计](screenshots/statistics.png) |
-<img width="813" height="822" alt="屏幕截图_20260513_173014" src="https://github.com/user-attachments/assets/292d8df2-503c-421d-8581-8eb5eb66964a" />
-<img width="1612" height="812" alt="屏幕截图_20260513_173157" src="https://github.com/user-attachments/assets/6e826b89-52c4-4ce0-ba18-0b7903104ca5" />
-<img width="1210" height="797" alt="屏幕截图_20260513_173439" src="https://github.com/user-attachments/assets/c19ce4b0-13c1-49ef-88f4-7bd760f3ee0f" />
-<img width="801" height="547" alt="屏幕截图_20260513_174305" src="https://github.com/user-attachments/assets/b3395adb-8894-4e42-972f-66d72edcccdb" />
-<img width="798" height="819" alt="屏幕截图_20260513_174707" src="https://github.com/user-attachments/assets/909d8db3-df8b-4787-b35d-9add653e66a7" />
-<img width="1625" height="631" alt="屏幕截图_20260513_175853" src="https://github.com/user-attachments/assets/db9419ae-8617-418d-b7f4-aee1a62ba911" />
-<img width="1217" height="648" alt="屏幕截图_20260513_180131" src="https://github.com/user-attachments/assets/866735c0-1f61-40d1-adf0-bef379706300" />
-<img width="1219" height="551" alt="屏幕截图_20260513_180313" src="https://github.com/user-attachments/assets/430c43b9-458a-4885-b902-dc7399c4bdbd" />
+[🎬 校园失物招领与二手交易平台演示视频](https://t.bilibili.com/1217255016576843796?share_source=pc_native)
 
-
-
+> **说明**：由于本项目暂未部署至云服务器，因此仅提供本地运行方式与演示视频，供查看系统功能与交互效果。后续如有条件可部署至公网环境。
 
 ---
 
